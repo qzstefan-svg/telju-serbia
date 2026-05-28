@@ -116,3 +116,69 @@ Gallery thumbnails are clickable to swap the main image.
 - Only angle 0 is guaranteed; angles 1, 2 may exist for some products
 - Telju.nl cardio catalog: only 3 products (ergometer, loopband, stairmaster)
 - Product page routing: JavaScript-based (showPage function), not separate HTML files
+
+
+## SESSION 4 — 2026-05-28
+
+### What was completed:
+
+**1. Added onclick product detail modals for Cable Masine (32 products)**
+
+All 32 cable machine product cards now have `openProductDetail()` onclick handlers with:
+- Product name
+- Correct telju.nl catalog image URL  
+- Serbian product description
+- Dimensions (L×W×H cm)
+- Specs (Serija: SHO | Tip | Opterećenje)
+
+**2. Added onclick product detail modals for Slobodni Tegovi (29 products)**
+
+All 29 freeweights product cards now have onclick handlers with the same structure.
+
+**3. Fixed UTF-8 encoding of Serbian characters in onclick attributes**
+
+Initial attempt (Session 4 commit 1) used double-encoded UTF-8 bytes, causing garbled
+Serbian text in modals. Fixed in commit 2 by using native Unicode codepoints in onclick.
+
+### Commits this session:
+- "Session 4: Add onclick product detail modals for Cable (32) and Freeweights (29) products" (33b4f97)
+- "Session 4b: Fix encoding of Serbian characters in product modal descriptions" (2dea3e6)
+
+### Status:
+- All 78 products (14 plate-loaded + 32 cable + 29 freeweights + 3 cardio) have working detail modals
+- Photo gallery works - shows additional angles from telju.nl where available (most have only angle 0)
+- Modal shows: product image, name, dimensions, Serbian description, specs, contact CTAs
+
+---
+
+## WHAT STILL NEEDS TO BE DONE
+
+### Priority 1: Fix global page encoding issue
+The page hero sections, breadcrumbs, and product card dimensions/names show garbled Serbian text
+(e.g. "PoÄetna" instead of "Početna"). This is a pre-existing issue from original file encoding.
+The HTML was stored as UTF-8 bytes but interpreted as Latin-1 somewhere in the commit history.
+**Fix**: The entire index.html needs to be fetched, properly decoded as UTF-8, and re-committed.
+
+### Priority 2: Content improvements  
+- Add pricing section or "Request quote" flow
+- Add proper Serbian descriptions for plate-loaded products (currently use placeholders)
+- Contact form functionality
+
+### Priority 3: SEO
+- Add proper meta tags and structured data
+- Add Open Graph tags for social sharing
+- Google Analytics setup
+
+### Priority 4: Mobile improvements
+- Test modal on small screens
+- Verify hamburger menu works
+
+---
+
+## KEY REFERENCE
+- Product image pattern: https://www.telju.nl/images/products/catalog/[name]-[ref]-[n].[ext]
+- Cable/SHO series ref codes: 4sho001-4sho080
+- PEAK series ref codes: 4shp01-4shp13
+- Only angle 0 is guaranteed; angles 1, 2 may exist for some products
+- Product page routing: JavaScript-based (showPage function), not separate HTML files
+- Encoding fix technique: Use native Unicode in onclick (not UTF-8 byte sequences)

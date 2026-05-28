@@ -153,11 +153,12 @@ Serbian text in modals. Fixed in commit 2 by using native Unicode codepoints in 
 
 ## WHAT STILL NEEDS TO BE DONE
 
-### Priority 1: Fix global page encoding issue
-The page hero sections, breadcrumbs, and product card dimensions/names show garbled Serbian text
-(e.g. "PoÄetna" instead of "Početna"). This is a pre-existing issue from original file encoding.
-The HTML was stored as UTF-8 bytes but interpreted as Latin-1 somewhere in the commit history.
-**Fix**: The entire index.html needs to be fetched, properly decoded as UTF-8, and re-committed.
+### ~~Priority 1: Fix global page encoding issue~~ ✅ DONE (Session 4c)
+Fixed double-encoded UTF-8 bytes throughout the entire index.html file.
+All Serbian text now displays correctly: breadcrumbs, product names, dimensions, page descriptions.
+Technique: Read file as UTF-8, detect 2-byte sequences (C0-DF + 80-BF) and 3-byte sequences
+(E0-EF + 80-BF + 80-BF) that represent double-encoded characters, decode them properly.
+Commit: "Session 4c: Fix global UTF-8 double-encoding..." (c8456ab)
 
 ### Priority 2: Content improvements  
 - Add pricing section or "Request quote" flow

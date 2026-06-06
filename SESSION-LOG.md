@@ -183,3 +183,46 @@ Commit: "Session 4c: Fix global UTF-8 double-encoding..." (c8456ab)
 - Only angle 0 is guaranteed; angles 1, 2 may exist for some products
 - Product page routing: JavaScript-based (showPage function), not separate HTML files
 - Encoding fix technique: Use native Unicode in onclick (not UTF-8 byte sequences)
+
+## SESSION 5 — 2026-06-06
+
+### What was completed:
+
+**1. Bug Fix: Product card backgrounds → #111111**
+Changed product-card background from var(--bg2) to #111111 for consistently dark product grids.
+
+**2. Bug Fix: SVA OPREMA dropdown 200ms close delay**
+Added ddOpen(el)/ddClose(el) JS functions with 200ms setTimeout on mouseleave. Dropdown no longer closes instantly.
+
+**3. Bug Fix: Projekti first image loading=eager**
+Changed first Projekti page image from loading=lazy to loading=eager for instant LCP.
+
+**4. Bug Fix: Machine detail modal → lightbox gallery**
+Added full lightbox system: #lightbox-overlay with prev/next arrows, close button, counter, and thumbnail strip. Main product image and gallery thumbs open lightbox on click. Keyboard navigation (arrows + Escape).
+
+**5. Bug Fix: Contact page → Pillars of Strength address + Google Maps**
+Added address: Pillars of Strength, Vrieseweg 8, 3311 NX Dordrecht, Nederland with Google Maps button.
+
+### Commit:
+`a909e82` — Session 5: Fix 5 bugs - product bg #111111, dropdown delay, eager loading, lightbox gallery, contact address
+
+### Status after Session 5:
+All 5 bugs fixed and live on telju.rs after Vercel auto-deploy.
+
+---
+
+### WHAT STILL NEEDS TO BE DONE
+
+**Priority 1 — Content**
+- Add pricing section or Request quote flow
+- Proper Serbian descriptions for plate-loaded products
+- Contact form functionality
+
+**Priority 2 — SEO**
+- Meta tags and structured data
+- Open Graph tags for social sharing
+- Google Analytics setup
+
+**Priority 3 — Mobile**
+- Test lightbox on small screens
+- Verify hamburger menu works

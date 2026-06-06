@@ -30,7 +30,7 @@ ul{list-style:none}
 .nav-menu a:hover,.nav-menu button:hover{color:var(--text);background:rgba(255,255,255,.06)}
 .nav-dropdown{position:relative}
 .dropdown-menu{display:none;position:absolute;top:100%;left:0;background:var(--bg2);border:1px solid var(--border2);border-radius:4px;min-width:220px;box-shadow:0 12px 32px rgba(0,0,0,.6);padding:6px 0;z-index:100;margin-top:4px}
-.nav-dropdown:hover .dropdown-menu{display:block}
+.nav-dropdown .dropdown-menu.open{display:block}
 .dropdown-menu a{display:block;padding:10px 18px;font-size:12px;font-weight:500;color:var(--text2);border-radius:0;letter-spacing:.3px;text-transform:none}
 .dropdown-menu a:hover{background:rgba(255,255,255,.06);color:var(--text)}
 .nav-cta{background:var(--red)!important;color:#fff!important;border-radius:3px!important;letter-spacing:.5px!important}
@@ -135,7 +135,7 @@ section{padding:72px 32px}
 .breadcrumb{font-size:11px;color:var(--text3);margin-bottom:14px;letter-spacing:.3px}
 .breadcrumb span{color:var(--text2);font-weight:600}
 .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:4px}
-.product-card{background:var(--bg2);overflow:hidden;transition:background .2s}
+.product-card{background:#111111;overflow:hidden;transition:background .2s}
 .product-card:hover{background:var(--bg3)}
 .product-card .pc-img{background:var(--bg3);aspect-ratio:1;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .product-card .pc-img img{width:100%;height:100%;object-fit:contain;padding:14px;transition:transform .3s}
@@ -464,6 +464,20 @@ footer{background:var(--bg2);color:var(--text2);padding:56px 32px 28px;border-to
 .prod-modal-actions a.btn-primary:hover{background:#cc0000}
 .prod-modal-actions a.btn-secondary{border:1px solid var(--border2);color:var(--text)}
 .prod-modal-actions a.btn-secondary:hover{background:var(--bg3)}
+.lightbox-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:9999;align-items:center;justify-content:center;flex-direction:column}
+.lightbox-overlay.open{display:flex}
+.lightbox-img-wrap{position:relative;max-width:90vw;max-height:85vh;display:flex;align-items:center;justify-content:center}
+.lightbox-img-wrap img{max-width:90vw;max-height:80vh;object-fit:contain;user-select:none}
+.lightbox-close{position:fixed;top:18px;right:24px;background:none;border:none;color:#fff;font-size:32px;cursor:pointer;z-index:10000;line-height:1;opacity:.8;transition:opacity .15s}
+.lightbox-close:hover{opacity:1}
+.lightbox-prev,.lightbox-next{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:none;color:#fff;font-size:28px;cursor:pointer;padding:16px 20px;z-index:10000;transition:background .15s;border-radius:2px}
+.lightbox-prev{left:16px}.lightbox-next{right:16px}
+.lightbox-prev:hover,.lightbox-next:hover{background:rgba(255,255,255,.25)}
+.lightbox-counter{color:rgba(255,255,255,.5);font-size:12px;margin-top:14px;letter-spacing:.5px}
+.lightbox-thumbs{display:flex;gap:8px;margin-top:12px;max-width:90vw;overflow-x:auto;padding-bottom:4px}
+.lightbox-thumbs img{width:52px;height:52px;object-fit:contain;background:#1a1a1a;padding:4px;cursor:pointer;border:2px solid transparent;transition:border-color .15s;flex-shrink:0}
+.lightbox-thumbs img.active,.lightbox-thumbs img:hover{border-color:#c8102e}
+.prod-modal-hero img{cursor:zoom-in}
 @media(max-width:600px){.prod-modal-body{padding:20px}.prod-modal-actions{flex-direction:column}.prod-modal-actions a{justify-content:center}}
 </style>
 </head>
@@ -484,7 +498,7 @@ footer{background:var(--bg2);color:var(--text2);padding:56px 32px 28px;border-to
       <button onclick="showPage('services')">Usluge</button>
       <button onclick="showPage('showroom')">Showroom</button>
       <button onclick="showPage('projects')">Projekti</button>
-      <div class="nav-dropdown">
+      <div class="nav-dropdown" onmouseenter="ddOpen(this)" onmouseleave="ddClose(this)">
         <button>Sva oprema ▾</button>
         <div class="dropdown-menu">
           <a onclick="showPage('plate-loaded')">Plate Loaded mašine</a>
@@ -591,7 +605,7 @@ footer{background:var(--bg2);color:var(--text2);padding:56px 32px 28px;border-to
   <section>
     <div class="sec-inner">
       <div class="services-img fade-in">
-        <img src="https://static.wixstatic.com/media/dead3a_3b2f12338df24ec19701253826e6c0e0~mv2.jpg/v1/fill/w_1153,h_742,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/dead3a_3b2f12338df24ec19701253826e6c0e0~mv2.jpg" alt="Naše usluge" loading="lazy">
+        <img src="https://static.wixstatic.com/media/dead3a_3b2f12338df24ec19701253826e6c0e0~mv2.jpg/v1/fill/w_1153,h_742,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/dead3a_3b2f12338df24ec19701253826e6c0e0~mv2.jpg" alt="Naše usluge" loading="eager">
       </div>
       <div class="text-center" style="margin-bottom:48px">
         <p class="sec-label fade-in">Šta nudimo</p>
@@ -995,7 +1009,7 @@ footer{background:var(--bg2);color:var(--text2);padding:56px 32px 28px;border-to
       <!-- FEATURED: Pillars of Strength -->
       <div class="proj-featured fade-in" onclick="openModal('pillars')">
         <div class="proj-featured-img">
-          <img src="https://static.wixstatic.com/media/dead3a_3b2f12338df24ec19701253826e6c0e0~mv2.jpg/v1/fill/w_1153,h_742,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/dead3a_3b2f12338df24ec19701253826e6c0e0~mv2.jpg" alt="Pillars of Strength Dordrecht" loading="lazy">
+          <img src="https://static.wixstatic.com/media/dead3a_3b2f12338df24ec19701253826e6c0e0~mv2.jpg/v1/fill/w_1153,h_742,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/dead3a_3b2f12338df24ec19701253826e6c0e0~mv2.jpg" alt="Pillars of Strength Dordrecht" loading="eager">
           <span class="proj-featured-badge">Istaknuti projekat</span>
         </div>
         <div class="proj-featured-body">
@@ -1141,6 +1155,8 @@ footer{background:var(--bg2);color:var(--text2);padding:56px 32px 28px;border-to
           <div class="contact-block">
             <h4>Lokacija</h4>
             <div class="cb-line"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Beograd, Srbija</span></div>
+            <div class="cb-line" style="margin-top:12px"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Pillars of Strength<br>Vrieseweg 8, 3311 NX Dordrecht<br>Nederland</span></div>
+            <a href="https://maps.google.com/?q=Vrieseweg+8,+3311+NX+Dordrecht,+Nederland" target="_blank" rel="noopener" class="btn btn-em" style="margin-top:14px;display:inline-flex;align-items:center;gap:8px;font-size:11px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Otvori Google Maps</a>
           </div>
         </div>
         <div class="contact-right fade-in">
@@ -1204,6 +1220,17 @@ footer{background:var(--bg2);color:var(--text2);padding:56px 32px 28px;border-to
 </footer>
 
 <script>
+
+function ddOpen(el){
+  clearTimeout(el._ddTimer);
+  el.querySelector('.dropdown-menu').classList.add('open');
+}
+function ddClose(el){
+  el._ddTimer = setTimeout(function(){
+    el.querySelector('.dropdown-menu').classList.remove('open');
+  }, 200);
+}
+
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   const el=document.getElementById('page-'+id);
@@ -1339,6 +1366,21 @@ function openProductDetail(name,img,desc,dims,specs){
       }
     }
   }
+    // Lightbox setup
+  (function(){
+    var mainImg = document.getElementById('prod-modal-img');
+    var galleryImgs = document.querySelectorAll('#prod-modal-gallery img');
+    var lbSrcs = [mainImg.src];
+    galleryImgs.forEach(function(gi){ if(gi.src !== mainImg.src) lbSrcs.push(gi.src); });
+    mainImg.onclick = function(){ openLightbox(lbSrcs, 0); };
+    galleryImgs.forEach(function(gi, i){
+      gi.onclick = function(){ 
+        mainImg.src = this.src;
+        var idx = lbSrcs.indexOf(this.src);
+        openLightbox(lbSrcs, idx > -1 ? idx : 0);
+      };
+    });
+  })();
   document.getElementById("prod-modal-overlay").classList.add("open");
   document.body.style.overflow="hidden";
 }
@@ -1352,6 +1394,58 @@ function closeProdModal(e){
 document.addEventListener("keydown",function(e){
   if(e.key==="Escape"){closeProdModalDirect();if(typeof closeModal==="function")closeModal();}
 });
+
+// LIGHTBOX
+var _lbSrcs = [];
+var _lbIdx = 0;
+function openLightbox(srcs, idx){
+  _lbSrcs = srcs;
+  _lbIdx = idx || 0;
+  lbRender();
+  document.getElementById('lightbox-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lbBgClick(e){
+  if(e.target === document.getElementById('lightbox-overlay')) closeLightbox();
+}
+function lbNav(dir){
+  _lbIdx = (_lbIdx + dir + _lbSrcs.length) % _lbSrcs.length;
+  lbRender();
+}
+function lbRender(){
+  var img = document.getElementById('lightbox-img');
+  img.src = _lbSrcs[_lbIdx];
+  img.alt = '';
+  // counter
+  document.getElementById('lightbox-counter').textContent = (_lbIdx+1) + ' / ' + _lbSrcs.length;
+  // thumbs
+  var thumbsEl = document.getElementById('lightbox-thumbs');
+  thumbsEl.innerHTML = '';
+  _lbSrcs.forEach(function(src, i){
+    var t = document.createElement('img');
+    t.src = src;
+    t.className = i === _lbIdx ? 'active' : '';
+    t.onclick = (function(ii){ return function(){ _lbIdx=ii; lbRender(); }; })(i);
+    thumbsEl.appendChild(t);
+  });
+  // hide prev/next if only 1 image
+  var prevBtn = document.querySelector('.lightbox-prev');
+  var nextBtn = document.querySelector('.lightbox-next');
+  if(prevBtn) prevBtn.style.display = _lbSrcs.length > 1 ? '' : 'none';
+  if(nextBtn) nextBtn.style.display = _lbSrcs.length > 1 ? '' : 'none';
+}
+document.addEventListener('keydown', function(e){
+  var lb = document.getElementById('lightbox-overlay');
+  if(!lb || !lb.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowLeft') lbNav(-1);
+  if(e.key === 'ArrowRight') lbNav(1);
+});
+
 </script>
 
 <!-- PRODUCT DETAIL MODAL -->
@@ -1377,6 +1471,18 @@ document.addEventListener("keydown",function(e){
       </div>
     </div>
   </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox-overlay" class="lightbox-overlay" onclick="lbBgClick(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <button class="lightbox-prev" onclick="lbNav(-1)">&#8249;</button>
+  <button class="lightbox-next" onclick="lbNav(1)">&#8250;</button>
+  <div class="lightbox-img-wrap">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+  <div id="lightbox-counter" class="lightbox-counter"></div>
+  <div id="lightbox-thumbs" class="lightbox-thumbs"></div>
 </div>
 </body>
 </html>

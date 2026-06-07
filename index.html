@@ -8,7 +8,7 @@
 <style>
 /* ===== DESIGN TOKENS ===== */
 :root{
-  --bg:#000;--bg2:#0d0d0d;--bg3:#141414;--bg4:#1a1a1a;
+  --bg:#000;--bg2:#0d0d0d;--bg3:#141414;--bg4:h#1a1a1a;
   --border:#2a2a2a;--border2:#333;
   --text:#fff;--text2:#bbb;--text3:#777;
   --red:#c8102e;--red-h:#e01030;
@@ -136,8 +136,8 @@ section{padding:72px 32px}
 .breadcrumb span{color:var(--text2);font-weight:600}
 .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:4px}
 .product-card{background:#111111;overflow:hidden;transition:background .2s}
-.product-card:hover{background:var(--bg3)}
-.product-card .pc-img{background:var(--bg3);aspect-ratio:1;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.product-card:hover{background:#111111}
+.product-card .pc-img{background:#111111;aspect-ratio:1;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .product-card .pc-img img{width:100%;height:100%;object-fit:contain;padding:14px;transition:transform .3s}
 .product-card:hover .pc-img img{transform:scale(1.05)}
 .product-card .pc-info{padding:14px 16px}

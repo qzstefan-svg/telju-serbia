@@ -279,8 +279,10 @@ KEY REFERENCE FOR NEXT SESSION
 
 
 SESSION 7 — 2026-06-07
-LAST UPDATED: 2026-06-07 (in progress)
-STATUS: IN PROGRESS
+LAST UPDATED: 2026-06-07
+STATUS: COMPLETE
+COMPLETED: white product photo backgrounds restored, mobile viewport / horizontal-overflow fixed.
+NEXT SESSION: optionally supply real cardio photos and bench/free-weight galleries; consider replacing the 8 white-bg JPGs with transparent PNGs if owner provides them; earlier content/SEO items still open.
 
 FIX 1 — Revert product photo backgrounds to WHITE (DONE)
 A previous session (27e0b7b) had set the product image tile (.product-card .pc-img) background to dark #111111. The owner wants the original white/clean catalog look (white machine photos on the black website background, like telju.nl / telju.de).
@@ -288,5 +290,14 @@ Change made: .product-card .pc-img background #111111 -> #fff. The card frame (.
 Note: there was NO mix-blend-mode, NO filter:invert, and NO background:#111111 on the actual <img> in the committed file (those were only tested-and-reverted in a prior session), so nothing else needed removing.
 Commit: "Revert: white product photo backgrounds restored" (d4aa399)
 
-FIX 2 — Mobile viewport / horizontal overflow (NOT STARTED YET)
-Next step in this session.
+FIX 2 — Mobile viewport / horizontal overflow (DONE)
+Diagnosis: the page had no overflow-x:hidden safety net, which allowed horizontal sliding on phones. The site ALREADY had responsive @media queries (960/860/600/560/480px) and an existing hamburger menu (openMenu/closeMenu) — so the nav and grids already collapse on mobile. The task's suggested selectors (.hero-inner, .usp-inner, #productsGrid, .nav-links, .hamburger) DO NOT EXIST in this codebase; the real ones are .hero, .product-grid, .footer-top, .nav-menu, .nav-inner, .sec-inner, .hero-text-inner.
+Changes made:
+1) Viewport meta updated to: width=device-width, initial-scale=1.0, maximum-scale=1.0
+2) Added CSS (just before the first </style>):
+   html,body{overflow-x:hidden;max-width:100%;width:100%}
+   *{box-sizing:border-box}
+   img,video,iframe{max-width:100%}
+   @media(max-width:768px){ html,body{overflow-x:hidden}; .hero->1fr; .product-grid->1fr 1fr; .footer-top->1fr; .sec-inner/.nav-inner/.hero-text-inner max-width:100%; section padding 16px }
+Used the REAL class names (not the task's placeholder names) so the rules actually apply.
+Commit: "Fix: mobile viewport overflow and zoom issue" (d7fd02a)

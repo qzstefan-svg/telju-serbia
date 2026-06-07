@@ -226,3 +226,53 @@ All 5 bugs fixed and live on telju.rs after Vercel auto-deploy.
 **Priority 3 — Mobile**
 - Test lightbox on small screens
 - Verify hamburger menu works
+
+
+SESSION 6 — 2026-06-07
+Status: COMPLETE
+
+WHAT WAS COMPLETED THIS SESSION
+
+FIX 1 — Dark backgrounds CSS (DONE)
+Changed .product-card .pc-img and .product-card:hover backgrounds from var(--bg3) (#141414) to #111111 so the image wrappers match the dark card and there is no lighter grey box behind product images.
+Commit: "Fix: dark backgrounds CSS" (27e0b7b)
+
+FIX 2 — White fringing / mix-blend-mode (INTENTIONALLY SKIPPED)
+The requested CSS (mix-blend-mode:multiply; background:#111111) was tested live and is DESTRUCTIVE on a dark background: multiply against #111 crushes the (already dark) machine cutouts into near-black silhouettes, making images barely visible. Tested both globally and on .jpg-only images — same result.
+The white-background images are 8 baked-white JPGs from telju.nl. telju.nl has NO transparent PNG equivalents (all return 404), and the images are CORS-tainted so client-side background removal is not possible.
+Decision (approved by owner): leave these as-is rather than break the images. DO NOT re-apply mix-blend-mode:multiply on the dark theme.
+The 8 white-bg images: stehendes-beinbeugen (Standing Leg Curl), drehsitz-rotary-torso (Rotacija torzo), abduktorenmaschine (Abductor), adduktorenmaschine (Adductor), gluteusmaschine (Glute), ergometer-healthy-pro, laufband-healthy-pro, stairmaster-touch.
+
+FIX 3 — Multiple photos per machine (DONE, batch 1)
+Scraped telju.nl individual product pages and extracted the real multi-photo galleries from /images/products/gallery/[ref]/Telju_[REF]_[name]_[NNN].jpg.
+Added a compact data map TELJU_TG + helper function teljuGallery(ref) into index.html (inserted just before function openProductDetail). The helper rebuilds the exact gallery URL list for each ref.
+25 product refs now have full galleries (6–16 photos each). Because telju.rs reuses refs across cards, 55 of 78 product cards now display multi-photo galleries.
+Commit: "Add: multiple product photos [batch 1]" (6603e38)
+
+FIX 4 — Product detail gallery + lightbox (DONE / verified)
+The lightbox system already existed (Session 5). Modified openProductDetail so the gallery is populated from teljuGallery(ref): main photo = photo 1, all other photos as clickable thumbnails (click thumb -> swaps main). Main/thumb click opens fullscreen lightbox with left/right arrows, ESC to close, and a counter (verified live: "2 / 12", arrow advanced to "3 / 12"). The old -0/-1/-2 catalog probe is now guarded with !__hasGal so it only runs when no TELJU_TG gallery exists. Closing the modal returns to the same category page (modal is an overlay, not a route change).
+No separate commit — shipped together with FIX 3 commit 6603e38.
+
+MACHINES THAT NOW HAVE MULTIPLE PHOTOS (25 refs, by base ref)
+4sho023 (4-Station Cable Tower, 7), 4sho053 (45 Leg Press, 16), 4sho020 (5-Station Cable Crossover, 9), 4sho059 (Leg Ext/Curl Combo, 12), 4sho050 (Leg Extension 70kg, 16), 4sho001 (Chest Press/Butterfly, 10), 4sho013 (Butterfly/Reverse Fly, 10), 4sho024 (Cable Crossover, 6), 4sho032 (Functional Trainer, 9), 4sho055 (Hack Squat, 9), 4sho029 (Pull-up/Dip Assist, 11), 4sho054 (Squat/Calf Raise, 10), 4sho021 (Lat Pulldown/Seated Row, 11), 4sho004 (Smith Machine, 8), 4sho041 (Seated Biceps Curl, 12), 4sho040 (Triceps, 12), 4sho027 (Seated Row, 11), 4sho057 (Seated Calf Raise, 11), 4shp01 (Chest Press PL, 14), 4shp10 (Glute, 11), 4shp05 (Pulldown PL, 12), 4shp02 (Incline Chest Press PL, 16), 4shp03 (Shoulder Press PL, 14), 4shp04 (Row PL, 16), 4shp011 (Super Squat PL, 11).
+
+CARDIO MACHINES STILL WAITING FOR PHOTOS FROM OWNER (only 1 photo each on telju.nl)
+- Ergometer Healthy Pro (ergometer-healthy-pro-4hp4vn.jpg)
+- Loopband Healthy Pro (laufband-healthy-pro-4hp4cn.jpg)
+- Stairmaster Touch (stairmaster-touch-4hp4st.jpg)
+telju.nl /fitnessapparatuur/cardio has no individual product/gallery pages, so no extra angles available. Owner must supply additional cardio photos.
+
+OTHER PRODUCTS WITHOUT GALLERIES (single photo only on telju.nl — no gallery folder)
+Pin-loaded white-bg JPGs: Standing Leg Curl (4sho065), Rotacija torzo (4sho031), Abductor (4sho061), Adductor (4sho060), Glute (4sho062) — verified their telju.nl pages load only the single catalog .jpg.
+Free-weights / benches (Vertical bench, Flat bench, Decline benches, Crunch bench, Shoulder Press bench, etc.) — telju.nl has no gallery pages for these.
+
+REMAINING ISSUES / NEXT SESSION
+1. (Optional) Replace the 8 white-background JPGs with properly background-removed transparent PNGs if/when the owner provides them, then they will match the dark theme. Until then, do NOT use mix-blend-mode:multiply (it darkens images to black).
+2. Add real cardio photos when owner supplies them, then add their refs to TELJU_TG.
+3. Free-weight/bench products could get galleries if telju.de or another source has multi-angle photos (not checked this session).
+4. Content/SEO items from earlier sessions still open (pricing/quote flow, meta tags, OG tags, analytics).
+
+KEY REFERENCE FOR NEXT SESSION
+- Gallery data lives in index.html as: var TELJU_TG={ref:[folder,name,ext,startNum,count], ...}; with helper function teljuGallery(ref).
+- To add a machine's gallery: open its telju.nl product page, read the /images/products/gallery/[ref]/Telju_[REF]_[name]_[NNN].jpg URLs from Next.js data or network requests, then add an entry to TELJU_TG. Most galleries number 001..N; a few start at 000 or 002 (that is what startNum is for).
+- Editing the 970KB index.html: use the GitHub web editor's CodeMirror view via document.querySelector('.cm-content').cmTile.view and dispatch({changes:[...]}) — manual scrolling is impractical at this size.

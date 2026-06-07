@@ -1323,6 +1323,8 @@ document.addEventListener("DOMContentLoaded",function(){
     }
   });
 });
+var TELJU_TG={"4sho023":["4sho023-0","Kabelzugturm_4_Stationen","jpg",1,7],"4sho053":["4sho053-0","Beinpresse_45_Grad","jpg",1,16],"4sho020":["4sho020-0","Kabelzug_Crossover_5_Stationen","jpg",1,9],"4sho059":["4sho059-0","Beinstrecker_Beinbeuger_Kombi_70kg","jpg",2,12],"4sho050":["4sho050-1","Beinstrecker_70kg","jpg",1,16],"4sho001":["4sho001-1","Brustpresse_70kg","jpg",1,10],"4sho013":["4sho013-0","Butterfly_Maschine","jpg",2,10],"4sho024":["4sho024-0","Kabelzug_Crossover_Einzel","jpg",1,6],"4sho032":["4sho032-0","Funktionaler_Trainer","jpg",1,9],"4sho055":["4sho055-0","Hackenschmidt_Maschine","jpg",1,9],"4sho029":["4sho029-0","Klimmzug_Dip_Maschine_80kg","jpg",1,11],"4sho054":["4sho054-1","Kniebeuge_Wadenmaschine_160kg","jpg",1,10],"4sho021":["4sho021-0","Kabelzug_Hoch_Tief_100kg","jpg",1,11],"4sho004":["4sho004-0","Gefuehrte_Multipresse","jpg",1,8],"4sho041":["4sho041-0","Bizeps_Maschine_70kg","jpg",1,12],"4sho040":["4sho040-1","Trizeps_Maschine_70kg","jpg",1,12],"4sho027":["4sho027-1","Rudermaschine_Sitzend_100kg","jpg",0,11],"4sho057":["4sho057-0","Wadenmaschine_Sitzend_Scheiben","jpg",1,11],"4shp01":["4shp01-0","Brustpresse_Scheibengeladen","jpg",1,14],"4shp10":["4shp10-0","Glute_Up_Maschine","jpg",1,11],"4shp05":["4shp05-0","Latzug_Scheibengeladen","jpg",1,12],"4shp02":["4shp02-0","Schraegbankpresse_Scheibengeladen","jpg",1,16],"4shp03":["4shp03-0","Schulterpresse_Scheibengeladen","jpg",1,14],"4shp04":["4shp04-0","Rudermaschine_Scheibengeladen","jpg",1,16],"4shp011":["4shp011-0","Super_Kniebeuge_Scheibengeladen","jpg",1,11]};
+function teljuGallery(ref){var d=TELJU_TG[ref];if(!d)return null;var folder=d[0],name=d[1],ext=d[2],start=d[3],cnt=d[4],out=[];for(var i=0;i<cnt;i++){var nnn=("00"+(start+i)).slice(-3);out.push("https://www.telju.nl/images/products/gallery/"+folder+"/Telju_"+folder.toUpperCase()+"_"+name+"_"+nnn+"."+ext);}return out;}
 function openProductDetail(name,img,desc,dims,specs){
   document.getElementById("prod-modal-name").textContent=name;
   document.getElementById("prod-modal-img").src=img;
@@ -1339,7 +1341,20 @@ function openProductDetail(name,img,desc,dims,specs){
   var gallery=document.getElementById("prod-modal-gallery");
   gallery.innerHTML="";
   gallery.style.display="none";
-  if(img.includes("/images/products/catalog/")&&img.match(/-0\./)){
+  var __hasGal=false;
+  try{
+    var __rm=img.match(/(4sh[op]\d+)/i);
+    var __ref=__rm?__rm[1].toLowerCase():null;
+    var __g=__ref?teljuGallery(__ref):null;
+    if(__g&&__g.length>1){
+      __hasGal=true;
+      document.getElementById("prod-modal-img").src=__g[0];
+      gallery.style.display="grid";
+      gallery.style.gridTemplateColumns="repeat(3,1fr)";
+      __g.forEach(function(src){var im=document.createElement("img");im.src=src;im.loading="lazy";im.onclick=function(){document.getElementById("prod-modal-img").src=src;};gallery.appendChild(im);});
+    }
+  }catch(__e){}
+  if(!__hasGal&&img.includes("/images/products/catalog/")&&img.match(/-0\./)){
     var baseUrl=img.replace(/-0\.([a-z]+)$/,"");var ext=img.match(/\.([a-z]+)$/)[1];
     var loaded=0,total=3,srcs=[];
     for(var n=0;n<total;n++){

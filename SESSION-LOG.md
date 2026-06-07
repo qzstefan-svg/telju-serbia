@@ -276,3 +276,17 @@ KEY REFERENCE FOR NEXT SESSION
 - Gallery data lives in index.html as: var TELJU_TG={ref:[folder,name,ext,startNum,count], ...}; with helper function teljuGallery(ref).
 - To add a machine's gallery: open its telju.nl product page, read the /images/products/gallery/[ref]/Telju_[REF]_[name]_[NNN].jpg URLs from Next.js data or network requests, then add an entry to TELJU_TG. Most galleries number 001..N; a few start at 000 or 002 (that is what startNum is for).
 - Editing the 970KB index.html: use the GitHub web editor's CodeMirror view via document.querySelector('.cm-content').cmTile.view and dispatch({changes:[...]}) — manual scrolling is impractical at this size.
+
+
+SESSION 7 — 2026-06-07
+LAST UPDATED: 2026-06-07 (in progress)
+STATUS: IN PROGRESS
+
+FIX 1 — Revert product photo backgrounds to WHITE (DONE)
+A previous session (27e0b7b) had set the product image tile (.product-card .pc-img) background to dark #111111. The owner wants the original white/clean catalog look (white machine photos on the black website background, like telju.nl / telju.de).
+Change made: .product-card .pc-img background #111111 -> #fff. The card frame (.product-card) stays #111111 so the title/dimensions area below each photo remains dark, and the website background stays black (#000). White-background JPG photos and transparent PNGs both display cleanly on the white tile.
+Note: there was NO mix-blend-mode, NO filter:invert, and NO background:#111111 on the actual <img> in the committed file (those were only tested-and-reverted in a prior session), so nothing else needed removing.
+Commit: "Revert: white product photo backgrounds restored" (d4aa399)
+
+FIX 2 — Mobile viewport / horizontal overflow (NOT STARTED YET)
+Next step in this session.

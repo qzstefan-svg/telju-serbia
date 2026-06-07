@@ -301,3 +301,20 @@ Changes made:
    @media(max-width:768px){ html,body{overflow-x:hidden}; .hero->1fr; .product-grid->1fr 1fr; .footer-top->1fr; .sec-inner/.nav-inner/.hero-text-inner max-width:100%; section padding 16px }
 Used the REAL class names (not the task's placeholder names) so the rules actually apply.
 Commit: "Fix: mobile viewport overflow and zoom issue" (d7fd02a)
+
+
+---
+
+SESSION 8 — 2026-06-07
+LAST UPDATED: 2026-06-07
+STATUS: COMPLETE
+
+COMPLETED THIS SESSION:
+- Belgrade photo added to Beograd project card. Uploaded owner-provided Belgrade aerial photo to assets/images/projects/belgrade.jpg (commit 40aefb5). Replaced the grey "Uskoro" placeholder in the proj-card-v2 for "Beograd, Srbija" with the photo as a cover background plus a dark bottom gradient overlay (linear-gradient rgba(0,0,0,.75) -> transparent) so the overlaid text stays readable. Overlay text: "Beograd, Srbija" + subtitle "U pripremi". Card body kept tag "Uskoro" using the existing .proj-tag.soon style which is already orange/gold (#ff8c00). Commit: "Update Beograd project card with Belgrade photo and overlay" (efa18f8).
+- Mobile viewport fixed (opens zoomed out, can still pinch zoom in). Changed viewport meta from "maximum-scale=1.0" to "minimum-scale=1.0" so the page opens fully zoomed out and the user can still pinch-zoom IN but not OUT past the initial view. Strengthened the existing overflow guard: html{overflow-x:hidden;max-width:100%;width:100%} body{...;min-width:0} *{box-sizing:border-box;max-width:100%} img/video/iframe{max-width:100%}, plus the existing @media(max-width:768px) rules (hero 1fr, product-grid 1fr 1fr = max 2 columns, footer 1fr, section padding 16px). Commit: "Fix: mobile viewport - opens zoomed out, can still pinch zoom in" (d25f5f5).
+- White product photo backgrounds verified. Confirmed in the live committed file: .product-card .pc-img{background:#fff}, .product-card{background:#111111} (dark empty cards), NO mix-blend-mode:multiply, NO filter:invert anywhere. Already correct from Session 7 — no change needed.
+
+NEXT SESSION:
+- Owner will provide cardio machine photos (ergometer, loopband, stairmaster). When received: upload to assets/images/products/ and add their refs to the TELJU_TG gallery map in index.html.
+- Optional: replace the 8 white-bg JPGs with transparent PNGs if owner provides them (do NOT use mix-blend-mode:multiply on the dark theme — it crushes images to black).
+- Earlier content/SEO items still open (pricing/quote flow, meta tags, OG tags, analytics).

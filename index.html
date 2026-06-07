@@ -2,7 +2,7 @@
 <html lang="sr-Latn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Telju Fitness Srbija | Fitnes oprema</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 <style>
@@ -479,6 +479,19 @@ footer{background:var(--bg2);color:var(--text2);padding:56px 32px 28px;border-to
 .lightbox-thumbs img.active,.lightbox-thumbs img:hover{border-color:#c8102e}
 .prod-modal-hero img{cursor:zoom-in}
 @media(max-width:600px){.prod-modal-body{padding:20px}.prod-modal-actions{flex-direction:column}.prod-modal-actions a{justify-content:center}}
+
+/* ===== MOBILE VIEWPORT / OVERFLOW FIX (Session 7) ===== */
+html,body{overflow-x:hidden;max-width:100%;width:100%}
+*{box-sizing:border-box}
+img,video,iframe{max-width:100%}
+@media(max-width:768px){
+  html,body{overflow-x:hidden}
+  .hero{grid-template-columns:1fr}
+  .product-grid{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr}
+  .sec-inner,.nav-inner,.hero-text-inner{max-width:100%}
+  section{padding-left:16px;padding-right:16px}
+}
 </style>
 </head>
 <body>

@@ -1257,7 +1257,8 @@ function ddClose(el){
   }, 200);
 }
 
-function showPage(id){
+function forceLoadVisibleImages(){setTimeout(function(){document.querySelectorAll('img').forEach(function(img){var rect=img.getBoundingClientRect();if(rect.top<window.innerHeight+200){img.loading='eager';if(img.dataset.src){img.src=img.dataset.src;}else{var s=img.src;img.src='';img.src=s;}}});},100);}
+function showPage(id){forceLoadVisibleImages();
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   const el=document.getElementById('page-'+id);
   if(el){el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}

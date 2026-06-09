@@ -318,3 +318,14 @@ NEXT SESSION:
 - Owner will provide cardio machine photos (ergometer, loopband, stairmaster). When received: upload to assets/images/products/ and add their refs to the TELJU_TG gallery map in index.html.
 - Optional: replace the 8 white-bg JPGs with transparent PNGs if owner provides them (do NOT use mix-blend-mode:multiply on the dark theme — it crushes images to black).
 - Earlier content/SEO items still open (pricing/quote flow, meta tags, OG tags, analytics).
+
+
+SESSION 9 — 2026-06-09
+STATUS: IN PROGRESS
+
+FIX 1 — Mobile centering (DONE)
+All content was shifting right on mobile. Added a MOBILE-CENTER-FIX CSS block before </style>: body{margin:0 auto;text-align:left}, .sec-inner/.nav-inner margin auto, and @media(max-width:768px){ .sec-inner,.nav-inner,.hero-inner,.footer-inner -> margin auto + 16px side padding + width/max-width 100% }. Used only class names that exist in this codebase (sec-inner, nav-inner, hero-inner, footer-inner; usp-inner does NOT exist). Commit: "Fix: mobile centering - content no longer shifted right".
+
+FIX 2 — Showroom/Projekti hero image load (PENDING)
+FIX 3 — Browser back button history (PENDING)
+FIX 4 — Verify previous fixes (PENDING)

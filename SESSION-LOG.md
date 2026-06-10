@@ -329,3 +329,21 @@ All content was shifting right on mobile. Added a MOBILE-CENTER-FIX CSS block be
 FIX 2 — Showroom/Projekti hero image load (PENDING)
 FIX 3 — Browser back button history (PENDING)
 FIX 4 — Verify previous fixes (PENDING)
+
+SESSION 9 (continued) — 2026-06-10 STATUS: COMPLETE
+DONE: mobile centering, image loading, back button, verified previous fixes
+
+FIX 1 — Mobile centering (DONE, committed 1f79b32). MOBILE-CENTER-FIX CSS block: body margin:0 auto/text-align:left; .sec-inner/.nav-inner margin auto; @media(max-width:768px) sec-inner/nav-inner/hero-inner/footer-inner -> margin auto + 16px side padding + width/max-width 100%.
+
+FIX 2 — Showroom/Projekti hero image load (DONE, committed 350fdc9). Added function forceLoadVisibleImages() (rect check < innerHeight+200 -> loading=eager + src reload) and call it as the first line of showPage(id). 5 images now loading=eager including the Showroom and Projekti hero images. Images now appear immediately on arrival without needing a scroll.
+
+FIX 3 — Browser back button history (DONE, committed 7b5e572). Wrapped global showPage with a history layer (__teljuHistoryFix): showPage(id, pushState) now does history.pushState({page:id},'','#'+id) unless pushState===false. Added window 'popstate' listener that calls showPage(event.state.page,false) or showPage('home',false). Added history.replaceState({page:'home'},'','#home') inside the DOMContentLoaded handler so the first entry is home. Result: subpage URL becomes #showroom etc., browser Back returns to #home instead of leaving the site, and Forward works.
+
+FIX 4 — Verify previous fixes (VERIFIED, no re-fix needed):
+[x] Belgrade photo on Beograd project card — assets/images/projects/belgrade.jpg present and used on the Beograd card.
+[x] Mobile viewport not zooming on open — viewport meta = width=device-width, initial-scale=1.0, minimum-scale=1.0 (no maximum-scale). Opens zoomed out, pinch-zoom in still allowed.
+[x] Product photos white backgrounds — .pc-img{background:#fff}; .product-card{background:#111111}; NO mix-blend-mode, NO filter:invert anywhere.
+[x] Contact page Dordrecht address — 'Vrieseweg 8, 3311 NX Dordrecht, Nederland' present.
+All four confirmed intact; nothing broke.
+
+NEXT SESSION: cardio photos when owner provides them (upload to assets/images/products/ and add refs to TELJU_TG). Optional: transparent PNGs for the 8 white-bg JPGs (do NOT use mix-blend-mode:multiply). Earlier content/SEO items still open.

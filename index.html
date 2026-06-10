@@ -1274,6 +1274,9 @@ function showPage(id){forceLoadVisibleImages();
 const hamburger=document.getElementById('hamburger');
 const mobileMenu=document.getElementById('mobileMenu');
 hamburger.addEventListener('click',()=>mobileMenu.classList.toggle('open'));
+/* __teljuHistoryFix: FIX 3 - browser back button support */
+(function(){var __teljuOrigShowPage=showPage;window.showPage=function(id,pushState){if(pushState!==false){history.pushState({page:id},'','#'+id);}return __teljuOrigShowPage(id);};})();
+window.addEventListener('popstate',function(event){if(event.state&&event.state.page){window.showPage(event.state.page,false);}else{window.showPage('home',false);}});
 function closeMenu(){mobileMenu.classList.remove('open');}
 
 const observer=new IntersectionObserver((entries)=>{
@@ -1339,7 +1342,7 @@ document.addEventListener('keydown',function(e){
 });
 
 // ===== PRODUCT DETAIL MODAL =====
-document.addEventListener("DOMContentLoaded",function(){
+document.addEventListener("DOMContentLoaded",function(){history.replaceState({page:'home'},'','#home');
   document.addEventListener("click",function(e){
     var card=e.target.closest(".product-card");
     if(card&&!e.target.closest(".prod-modal-overlay")){

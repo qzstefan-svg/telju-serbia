@@ -347,3 +347,22 @@ FIX 4 — Verify previous fixes (VERIFIED, no re-fix needed):
 All four confirmed intact; nothing broke.
 
 NEXT SESSION: cardio photos when owner provides them (upload to assets/images/products/ and add refs to TELJU_TG). Optional: transparent PNGs for the 8 white-bg JPGs (do NOT use mix-blend-mode:multiply). Earlier content/SEO items still open.
+
+
+SESSION 10 — 2026-06-12 STATUS: IN PROGRESS
+
+TASK: Fix duplicate product photos (option B: all duplicate groups) + verify white backgrounds.
+
+KEY FINDING: telju.nl restructured — /fitnessapparatuur/vrije-gewichten now 404. The free-weight products still exist in the single catalog at /fitnessapparatuur (Power Rack, Special Power Rack, Squat Stand with Plate Holder, Men/Women Olympic Barbell, Straight Bar, Sissy Squat, Kettlebells, Hex Dumbbell, benches, plate trees, dumbbell racks, etc.). Catalog image pattern unchanged: https://www.telju.nl/images/products/catalog/[file].
+
+Found 18 duplicate-image groups across 78 cards (all images that were shared by 2+ machines).
+
+COMPLETED (squatrack/barbell group — owner priority):
+- Squatrack 1 -> squat-rack-4sho091-0.png (Power Rack). commit Fix: unique photo for Squatrack 1
+- Squatrack 2 -> special-squat-rack-4sho091-1.png (Special Power Rack). commit Fix: unique photo for Squatrack 2
+- Squatrack 3 -> squat-rack-4sho092-0.png (Squat Stand with Plate Holder). commit Fix: unique photo for Squatrack 3
+- 20 kg šipka -> men-s-barbell-1dis0177.png (Men Olympic Barbell). commit (message accidentally merged with Copilot suggestion; change is correct).
+
+NOTE: GitHub commit dialog auto-fills a Copilot message; must Ctrl+A clear before typing the prescribed message.
+
+NEXT (still on multipower-4sho004-0 group): Stalak za bučice, Olympic bar and plate rack, Double Olympic disc support, Mikrodiskovi. Then remaining 13 duplicate groups. Plan: assign correct unique telju.nl photo; if no telju.nl product exists for a duplicate card, REMOVE that card entirely (owner instruction).

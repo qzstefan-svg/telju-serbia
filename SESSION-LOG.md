@@ -402,3 +402,23 @@ WHITE BACKGROUNDS (mobile + desktop) VERIFIED: live computed style .product-card
 COMMITS: "Fix: unique photos for all duplicate-image groups (17 groups), placeholders where no unique telju.nl photo exists" + this SESSION-LOG update.
 
 NEXT SESSION: cardio photos when owner supplies them (ergometer, loopband, stairmaster -> upload + add refs to TELJU_TG). Optional: source real photos for the 7 placeholder cards if available elsewhere. Earlier content/SEO items still open.
+
+====================================================================
+SESSION 12 — 2026-06-13 (DONE)
+====================================================================
+TASKS (all completed this session):
+1) 20 kg šipka thumbnail — bar was barely visible (telju.nl men-s-barbell-1dis0177.png is a wide split render where the bar shows as two tiny stubs with empty middle; telju.nl itself renders it the same way). Only two barbell assets exist on telju.nl (men's + women's), both same split format; women's is even fainter. FIX: kept men's barbell image (correct product, clearest of the two) and added class "pc-img-bar" to that one <img> + CSS rule .pc-img-bar{transform:scale(1.85);object-fit:contain} so the bar ends enlarge and read clearly as a barbell. NOTE for next session: a proper full-bar photo from the owner would be ideal; current fix is best achievable with telju.nl assets.
+
+2) White photo backgrounds on phone — root cause was NOT the card thumbnails (.pc-img already #fff, verified white on mobile+desktop). It was the PRODUCT DETAIL MODAL hero image container .prod-modal-hero which had background:var(--bg3) (#141414 dark). When you tap/click a product, the enlarged photo showed on a dark bg on phone and desktop. FIX: changed .prod-modal-hero{background:var(--bg3)} -> {background:#fff}. Verified live: getComputedStyle(.prod-modal-hero).backgroundColor === rgb(255,255,255). Card tiles remain white as before.
+
+3) Removed the 7 "Foto uskoro" placeholder cards entirely (owner will re-add when real photos arrive — user said: "wanneer die komen geef ik het zelf aan"). Removed cards: Tricep extension, Chest press, Lateral Raise, Pullover Machine, 3 Stack Station, 5 Stack Station, Bicep Curl. Card count 78 -> 71. Div balance verified 411/411 (was 432/432 before placeholders existed). 0 pc-img-empty cards remain (the unused .pc-img-empty CSS rule was left in place, harmless). 0 duplicate thumbnails (Session 11 uniqueness preserved). 0 empty <img src>.
+
+COMMIT: "Fix: white photo backgrounds in product modal, improve 20kg barbell visibility, remove placeholder cards" (index.html, commit ecbcfba) + this SESSION-LOG update.
+
+VERIFIED LIVE on telju.rs (?v=13): modalHeroBg=rgb(255,255,255), placeholderCards=0, sipka img class=pc-img-bar, .pc-img-bar transform=scale(1.85), totalCards=71.
+
+NEXT SESSION / OPEN (owner-dependent):
+- Owner to supply a proper 20kg barbell photo if the scaled telju.nl one isn't satisfactory.
+- Owner to supply real photos for the 7 removed machines (Tricep extension, Chest press, Lateral Raise, Pullover Machine, 3 Stack Station, 5 Stack Station, Bicep Curl) — re-add cards when provided.
+- Cardio photos still pending (ergometer, loopband, stairmaster).
+- Earlier content/SEO items still open (pricing/quote flow, meta/OG tags, analytics).

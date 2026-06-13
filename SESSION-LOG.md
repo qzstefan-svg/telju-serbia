@@ -366,3 +366,39 @@ COMPLETED (squatrack/barbell group — owner priority):
 NOTE: GitHub commit dialog auto-fills a Copilot message; must Ctrl+A clear before typing the prescribed message.
 
 NEXT (still on multipower-4sho004-0 group): Stalak za bučice, Olympic bar and plate rack, Double Olympic disc support, Mikrodiskovi. Then remaining 13 duplicate groups. Plan: assign correct unique telju.nl photo; if no telju.nl product exists for a duplicate card, REMOVE that card entirely (owner instruction).
+
+
+================================================================
+SESSION 11 — 2026-06-13   STATUS: COMPLETE
+================================================================
+
+TASK: Finish duplicate-photo dedup across ALL categories + verify white backgrounds (mobile + desktop).
+
+NOTE ON OWNER INSTRUCTION CHANGE: This session's instruction overrides the Session 10 "remove card" plan. New rule: if no unique telju.nl photo exists for a duplicate card -> LEAVE AN EMPTY PLACEHOLDER (do NOT delete the card, do NOT reuse another machine's photo).
+
+METHOD: Built full inventory of 127 unique telju.nl catalog image filenames (from /fitnessapparatuur Next.js _next/image network requests). Edited the live index.html via GitHub CodeMirror (document.querySelector('.cm-content').cmTile.view) using targeted per-card replacements keyed by <h3> name + duplicate file, changing BOTH the onclick image and the <img src> within each specific card only.
+
+RESULT: All 17 duplicate-thumbnail groups resolved. Final scan = 0 duplicate thumbnails across 78 cards. 7 cards left as clean placeholders ("Foto uskoro") because telju.nl has no distinct photo for them: Chest press, Lateral Raise (cable, pec-deck group), Tricep extension (seated-dip group), Pullover Machine (cable-crossover group), 3 Stack Station + 5 Stack Station (stack stations), Bicep Curl (freeweights).
+
+KEY REASSIGNMENTS (kept one card per group on its original correct photo, reassigned the rest):
+- Leg curl(cable) -> liegender-beinbeuger-plate-loaded-4shp09-0
+- Leg extension(cable) -> beinstrecker-100-kg-4sho050-2
+- Seated Calf Machine -> sitzendes-wadenheben-120-kg-4sho063-0
+- Sissy squat support -> sissy-squat-4sho066-1
+- Abdominal Crunch -> bauchmaschine-50-kg-4sho068-0
+- Shoulder Press(cable) -> schulterdrueckbank-4sho076-0
+- Functional glute station -> abduktorenmaschine-50-kg-4sho061-0
+- T-Bar row -> t-bar-row-4sho028-0
+- Back Extension(cable) -> back-extension-4sho085-0 ; Glute ham developer -> rueckenstrecker-90-4sho084-0 ; Hyperextension -> back-extension-4sho069-0
+- Dip/Chin/Pull Up/Leg Raise -> pull-up-leg-raise-dip-4sho066-0 ; Dips/Leg Raises -> leg-raise-dip-4sho086-0
+- Benchpress -> flachdrueckbank-4sho070-0 ; Incline benchpress -> schraegbank-positiv-4sho071-0
+- Bicep curl(cable) -> scott-bench-4sho083-0 ; Urethane bucice -> hexagonal-dumbbell-1dis0101 ; Kettlebell -> kettlebells-1dis0138 ; Tegovi 5-25 kg -> bumper-plates-black-1dis0133
+- Bench group: Vertical bench -> vertical-bench-4sho081-0 ; Flat bench -> flat-bench-4sho073-0 ; Crunch bench -> abdominal-bench-4sho090-0 ; Podesiva decline klupa -> adjustable-declined-bench-4sho080-2 ; Decline Bench Press -> declined-bench-4sho075-0 ; Shoulder Press Bench -> olympische-schulterdrueckbank-4sho077-0 ; (Podesiva klupa kept adjustable-bench-4sho080-0)
+
+PLACEHOLDER STYLING: empty <img> replaced with <div class="pc-img pc-img-empty"><span class="pc-noimg">Foto uskoro</span></div>; added CSS .pc-img-empty{flex-center;background:#fff} .pc-noimg{#999 uppercase}.
+
+WHITE BACKGROUNDS (mobile + desktop) VERIFIED: live computed style .product-card .pc-img{background:rgb(255,255,255)}, .product-card{background:rgb(17,17,17)}. The ONLY @media(max-width:560px) rules touching cards adjust .pc-info padding and h3/p font-size — none change the image-tile background. So white tiles render identically on mobile and desktop. Confirmed visually on desktop Plate Loaded page.
+
+COMMITS: "Fix: unique photos for all duplicate-image groups (17 groups), placeholders where no unique telju.nl photo exists" + this SESSION-LOG update.
+
+NEXT SESSION: cardio photos when owner supplies them (ergometer, loopband, stairmaster -> upload + add refs to TELJU_TG). Optional: source real photos for the 7 placeholder cards if available elsewhere. Earlier content/SEO items still open.

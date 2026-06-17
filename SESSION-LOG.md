@@ -459,3 +459,21 @@ COMMIT: "Fix: 20kg sipka clean barbell SVG + force white photo backgrounds on mo
 NOTE: The barbell is now a drawn SVG graphic (not a photo) because telju.nl has no usable full-bar photo. If the owner provides a real 20 kg barbell PHOTO, swap the data-URI in both the card img and the openProductDetail argument for the uploaded photo path.
 
 NEXT SESSION / OPEN (owner-dependent): real 20kg barbell photo if desired; cardio photos (ergometer, loopband, stairmaster); real photos for the 7 previously-removed machines; earlier content/SEO items.
+
+
+====================================================================
+SESSION 15 — 2026-06-17 (DONE)
+
+OWNER FEEDBACK: the Session 14 SVG drawing of the 20 kg sipka looked ugly; use the real telju.nl/telju.de photo instead.
+
+INVESTIGATION:
+- telju.nl men-s-barbell-1dis0177.png = broken split-render: faded near-invisible smudges, empty middle (the original complaint). Unusable.
+- telju.de has NO product photos on its /kraftgerate/freigewichte page (text/marketing only, just logos).
+- BUT telju.de hosts the image file at https://www.telju.de/images/products/catalog/men-s-barbell-1dis0177.webp (HEAD 200). Viewed it: same split composition (two bar halves, empty middle) BUT MUCH sharper than the .nl .png - both halves clearly show the knurled shaft, the red Telju collar marking and the sleeve. Reads clearly as a real Olympic barbell. No alternate angles exist (-0/-1/-2 all 404); women's bar is the only other and is the same split format.
+- Confirmed the telju.de webp loads fine from the telju.rs origin (new Image() -> LOADED 1200x800, no CORS/hotlink block).
+
+FIX (DONE): Replaced the SVG data-URI with the telju.de webp URL in BOTH places (card <img src> + openProductDetail modal arg). Changed .pc-img-bar from transform:none -> transform:scale(1.25);object-fit:contain;padding:6px !important so the real photo fills the tile a bit more. Commit: "Fix: use real telju.de barbell photo for 20kg sipka instead of SVG drawing" (index.html). Verified live on telju.rs (?v=13): sipka card now shows the real telju.de barbell photo (img.naturalWidth=1200, complete=true), white background intact.
+
+NOTE: The bar is shown 'split' (two halves) because that is how Telju photographs their long bars - it is the manufacturer's own product photo, the best real image available. If the owner has a single full-bar studio photo, upload it to assets/images/products/ and swap the URL in both the card img and the openProductDetail arg.
+
+WHITE BACKGROUNDS (mobile+desktop) from Session 14 still in place (/* WHITE-BG-MOBILE-FIX */).

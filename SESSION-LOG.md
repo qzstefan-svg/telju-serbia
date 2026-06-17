@@ -422,3 +422,22 @@ NEXT SESSION / OPEN (owner-dependent):
 - Owner to supply real photos for the 7 removed machines (Tricep extension, Chest press, Lateral Raise, Pullover Machine, 3 Stack Station, 5 Stack Station, Bicep Curl) — re-add cards when provided.
 - Cardio photos still pending (ergometer, loopband, stairmaster).
 - Earlier content/SEO items still open (pricing/quote flow, meta/OG tags, analytics).
+
+
+====================================================================
+SESSION 13 — 2026-06-17 (VERIFICATION ONLY — NO CODE CHANGES NEEDED)
+
+Resumed with task list: Squatrack 1/2/3 unique photos, 20 kg sipka unique photo, check all categories for duplicate photos, white backgrounds mobile+desktop.
+
+FINDING: All already completed in Sessions 10-12 and live. Verified on telju.rs (?v=13) via runtime checks:
+- totalCards: 71, duplicateThumbnails: [] (0 duplicates across all categories)
+- Squatrack 1 -> squat-rack-4sho091-0.png ; Squatrack 2 -> special-squat-rack-4sho091-1.png ; Squatrack 3 -> squat-rack-4sho092-0.png (all unique)
+- 20 kg sipka -> men-s-barbell-1dis0177.png with class pc-img-bar (scale 1.85 visibility fix)
+- White backgrounds: .product-card .pc-img bg = rgb(255,255,255); .product-card bg = rgb(17,17,17); .prod-modal-hero bg = rgb(255,255,255). @media(max-width:560px) card rules touch padding/font only, so white tiles render identically on mobile and desktop.
+- viewport meta = width=device-width, initial-scale=1.0, minimum-scale=1.0
+
+No unique-photo conflicts; nothing reused; no placeholders needed re-adding (7 placeholder cards removed by owner instruction in Session 12, to be re-added by owner when real photos arrive).
+
+NO COMMITS to index.html — no changes required. Verification-only log entry.
+
+NEXT SESSION (unchanged, owner-dependent): cardio photos (ergometer, loopband, stairmaster); proper 20kg barbell photo if owner has one; real photos for the 7 removed machines; earlier content/SEO items.

@@ -441,3 +441,21 @@ No unique-photo conflicts; nothing reused; no placeholders needed re-adding (7 p
 NO COMMITS to index.html — no changes required. Verification-only log entry.
 
 NEXT SESSION (unchanged, owner-dependent): cardio photos (ergometer, loopband, stairmaster); proper 20kg barbell photo if owner has one; real photos for the 7 removed machines; earlier content/SEO items.
+
+
+====================================================================
+SESSION 14 — 2026-06-17 (DONE)
+
+TASKS (owner request):
+1) 20 kg sipka image - middle of the bar was wiped out (telju.nl men-s-barbell render only shows the two ends, empty middle; women's bar is the same split format). The Session 12 pc-img-bar scale(1.85) trick did not apply (computed transform was 'none') so the bar still looked tiny/broken.
+2) Make product photo backgrounds white on the PHONE/mobile variant too (not only desktop).
+
+FIX 1 - 20 kg sipka (DONE). Replaced the broken telju.nl barbell image with a clean inline SVG of a FULL Olympic barbell (shaft + plates on both ends + '20 KG' label) on a white background, as a data:image/svg+xml URI. Applied to BOTH the card <img src> AND the openProductDetail() modal argument (the only 2 places men-s-barbell-1dis0177.png appeared). Changed .pc-img-bar from transform:scale(1.85) -> transform:none;object-fit:contain;padding:18px !important so the SVG shows at natural contain size. No other machine's photo reused. Verified live: sipka card now shows a complete barbell with visible middle.
+
+FIX 2 - White photo backgrounds on mobile (DONE). Added a /* WHITE-BG-MOBILE-FIX */ CSS block before the last </style>: .product-card .pc-img{background:#fff !important}, .product-card .pc-img img{background:#fff}, .prod-modal-hero{background:#fff !important}, repeated inside @media(max-width:768px) and @media(max-width:560px) with !important. Verified live: all 71 product .pc-img tiles compute to rgb(255,255,255); the media-query rules guarantee white on phone widths and also cover the product-detail modal hero on mobile.
+
+COMMIT: "Fix: 20kg sipka clean barbell SVG + force white photo backgrounds on mobile" (index.html, commit 4c52a92, +16 -2). Verified deployed on telju.rs (?v=13).
+
+NOTE: The barbell is now a drawn SVG graphic (not a photo) because telju.nl has no usable full-bar photo. If the owner provides a real 20 kg barbell PHOTO, swap the data-URI in both the card img and the openProductDetail argument for the uploaded photo path.
+
+NEXT SESSION / OPEN (owner-dependent): real 20kg barbell photo if desired; cardio photos (ergometer, loopband, stairmaster); real photos for the 7 previously-removed machines; earlier content/SEO items.

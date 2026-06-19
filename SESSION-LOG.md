@@ -477,3 +477,26 @@ FIX (DONE): Replaced the SVG data-URI with the telju.de webp URL in BOTH places 
 NOTE: The bar is shown 'split' (two halves) because that is how Telju photographs their long bars - it is the manufacturer's own product photo, the best real image available. If the owner has a single full-bar studio photo, upload it to assets/images/products/ and swap the URL in both the card img and the openProductDetail arg.
 
 WHITE BACKGROUNDS (mobile+desktop) from Session 14 still in place (/* WHITE-BG-MOBILE-FIX */).
+
+====================================================================
+SESSION 16 — 2026-06-19 STATUS: IN PROGRESS
+
+TASK: (1) Fix mobile white product-photo backgrounds; (2) Add missing cardio machines from telju.nl.
+
+NOTE ON CODEBASE: There is NO main.js and NO PRODUCTS array in this repo — it is a single index.html with hardcoded .product-card elements whose onclick calls openProductDetail(name,imageURL,desc,dims,specs). Cardio cards live under id="page-cardio". Product photos reference telju.nl catalog URLs directly (existing 3 cardio cards do this), so new cardio machines follow the same pattern (unique telju.nl catalog URL each).
+
+STEP 1 — White backgrounds (DONE, committed 7a3352c "Fix: white backgrounds consistent on mobile matching desktop").
+Audited EVERY CSS rule (incl. inside @media) touching .product-card/.pc-img/img via getComputedStyle + stylesheet scan on live telju.rs: photo tiles (.pc-img) and their imgs already compute to rgb(255,255,255) at all / 768px / 560px; .product-card frame is intentionally #111111 (dark title area); NO mix-blend-mode, NO filter:invert, NO dark overlay anywhere. To make it bulletproof and satisfy the task's explicit 480px requirement, added a /* WHITE-BG-ALL-SIZES */ block before the first </style>: .product-card .pc-img, .product-card .pc-img img, .product-card img, .pc-img-empty -> background:#fff !important at base, @media(max-width:768px), and @media(max-width:480px).
+
+STEP 2 — Cardio machines (IN PROGRESS). KEY FINDING: telju.nl cardio page now has an "ALLE CARDIOTOESTELLEN BEKIJKEN" button -> /fitnessapparatuur/cardio/producten listing 11 machines. telju.rs currently has only 3 (Ergometer, Loopband, Stairmaster Touch). 8 NEW machines to add, all with telju.nl catalog photos (verified HTTP 200, .jpg + .webp):
+  Air Bike Healthy Pro       air-bike-healthy-pro-4hp4w4.jpg
+  Crosstrainer Healthy Pro   crosstrainer-healthy-pro-4hp4en.jpg
+  Curved Treadmill           curved-laufband-4hp4w3.jpg
+  Indoor Cycle CA2000        indoor-cycle-ca2000-ca2000.jpg
+  Recumbent Bike Healthy Pro liegefahrrad-healthy-pro-4hp4rn.jpg
+  Air Rower                  rudergeraet-air-4hp4w2.jpg
+  Ski Trainer Air            ski-trainer-air-4hp4sk.jpg
+  Stairmaster Classic        stairmaster-classic-4hp4sc.jpg
+Each gets its OWN unique photo (no reuse). Base URL: https://www.telju.nl/images/products/catalog/[file]
+
+// AUTO-SAVE: CONTINUE HERE - next: add the 8 new cardio .product-card entries into #page-cardio in index.html, commit each, then verify grid.

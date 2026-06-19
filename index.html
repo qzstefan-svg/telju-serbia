@@ -518,6 +518,24 @@ body{margin:0 auto;text-align:left}
   .product-card .pc-img{background:#fff !important}
   .prod-modal-hero{background:#fff !important}
 }
+
+/* WHITE-BG-ALL-SIZES: guarantee white product photo backgrounds on every screen size (desktop + mobile) */
+.product-card .pc-img,
+.product-card .pc-img img,
+.product-card img,
+.pc-img-empty{background:#ffffff !important;}
+@media (max-width: 768px){
+  .product-card .pc-img,
+  .product-card .pc-img img,
+  .product-card img,
+  .pc-img-empty{background:#ffffff !important;}
+}
+@media (max-width: 480px){
+  .product-card .pc-img,
+  .product-card .pc-img img,
+  .product-card img,
+  .pc-img-empty{background:#ffffff !important;}
+}
 </style>
 </head>
 <body>

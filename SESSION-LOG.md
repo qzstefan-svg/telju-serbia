@@ -479,7 +479,7 @@ NOTE: The bar is shown 'split' (two halves) because that is how Telju photograph
 WHITE BACKGROUNDS (mobile+desktop) from Session 14 still in place (/* WHITE-BG-MOBILE-FIX */).
 
 ====================================================================
-SESSION 16 — 2026-06-19 STATUS: IN PROGRESS
+SESSION 16 — 2026-06-19 STATUS: COMPLETE
 
 TASK: (1) Fix mobile white product-photo backgrounds; (2) Add missing cardio machines from telju.nl.
 
@@ -499,4 +499,24 @@ STEP 2 — Cardio machines (IN PROGRESS). KEY FINDING: telju.nl cardio page now 
   Stairmaster Classic        stairmaster-classic-4hp4sc.jpg
 Each gets its OWN unique photo (no reuse). Base URL: https://www.telju.nl/images/products/catalog/[file]
 
-// AUTO-SAVE: CONTINUE HERE - next: add the 8 new cardio .product-card entries into #page-cardio in index.html, commit each, then verify grid.
+
+STEP 2 — Cardio machines (DONE). Added 8 NEW cardio .product-card entries into #page-cardio (after Stairmaster Touch), each committed separately:
+  Add: cardio machine Air Bike Healthy Pro
+  Add: cardio machine Crosstrainer Healthy Pro
+  Add: cardio machine Curved Treadmill
+  Add: cardio machine Indoor Cycle CA2000
+  Add: cardio machine Recumbent Bike Healthy Pro
+  Add: cardio machine Air Rower
+  Add: cardio machine Ski Trainer Air
+  Add: cardio machine Stairmaster Classic
+Each uses its OWN unique telju.nl catalog photo (same pattern as the original 3 cardio cards). No photo reused.
+
+STEP 3 — Verify cardio grid (DONE, verified live on telju.rs after Vercel deploy):
+  - Cardio grid now shows ALL 11 machines (was 3): runtime count = 11.
+  - All 11 product photos load (img.naturalWidth=1200 each) on white tiles (.pc-img bg = rgb(255,255,255)).
+  - 0 duplicate photos among cardio machines (all 11 image filenames unique).
+  - Each card's onclick image arg === its own thumbnail (no cross-wiring) -> clicking each opens the correct product detail modal. Confirmed visually: Air Rower modal shows correct rower photo, Serbian desc + specs, on white bg.
+
+STATUS: COMPLETE
+DONE: mobile white backgrounds fixed (WHITE-BG-ALL-SIZES block at all/768px/480px; no mix-blend/filter/overlay anywhere) + all 8 missing cardio machines added (cardio total 3 -> 11).
+NEXT SESSION: optional - owner may supply real dimensions for the 8 new cardio machines (telju.nl has no individual cardio product pages, so dims left as series label "HEALTHY PRO serija"/"CA2000 serija"); 7 previously-removed non-cardio placeholder machines still await owner photos; earlier content/SEO items still open.

@@ -1312,7 +1312,7 @@ const mobileMenu=document.getElementById('mobileMenu');
 hamburger.addEventListener('click',()=>mobileMenu.classList.toggle('open'));
 /* __teljuHistoryFix: FIX 3 - browser back button support */
 (function(){var __teljuOrigShowPage=showPage;window.showPage=function(id,pushState){if(pushState!==false){history.pushState({page:id},'','#'+id);}return __teljuOrigShowPage(id);};})();
-window.addEventListener('popstate',function(event){if(event.state&&event.state.page){window.showPage(event.state.page,false);}else{window.showPage('home',false);}});
+window.addEventListener('popstate',function(event){var __lb=document.getElementById('srLightbox');var __pm=document.getElementById('prod-modal-overlay');if(__lb&&__lb.classList.contains('open')){__lb.classList.remove('open');document.body.style.overflow='';return;}if(__pm&&__pm.classList.contains('open')){__pm.classList.remove('open');document.body.style.overflow='';return;}if(event.state&&event.state.page){window.showPage(event.state.page,false);}else if(event.state&&event.state.view){}else{window.showPage('home',false);}});
 function closeMenu(){mobileMenu.classList.remove('open');}
 
 const observer=new IntersectionObserver((entries)=>{

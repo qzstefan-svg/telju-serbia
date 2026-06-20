@@ -520,3 +520,20 @@ STEP 3 — Verify cardio grid (DONE, verified live on telju.rs after Vercel depl
 STATUS: COMPLETE
 DONE: mobile white backgrounds fixed (WHITE-BG-ALL-SIZES block at all/768px/480px; no mix-blend/filter/overlay anywhere) + all 8 missing cardio machines added (cardio total 3 -> 11).
 NEXT SESSION: optional - owner may supply real dimensions for the 8 new cardio machines (telju.nl has no individual cardio product pages, so dims left as series label "HEALTHY PRO serija"/"CA2000 serija"); 7 previously-removed non-cardio placeholder machines still await owner photos; earlier content/SEO items still open.
+
+
+====================================================================
+SESSION 17 — 2026-06-20 STATUS: IN PROGRESS
+
+TASK: (1) Fix swipe-back so the photo lightbox closes first (not exit site); (2) Make ALL product photos white background on mobile.
+
+STEP 1 — Swipe-back lightbox history layering (DONE, verified live).
+Architecture found: showPage(id,pushState) is wrapped by __teljuHistoryFix (Session 9) which pushes {page:id} and a popstate listener that did showPage(state.page) else home. The product modal (openProductDetail/closeProdModalDirect on #prod-modal-overlay) and the shared gallery lightbox (openLightbox/closeLightbox on #srLightbox) pushed NO history at all — so a swipe-back while the lightbox was open popped a page-level entry and jumped to home / off-site. That was the bug.
+Fix made in two commits:
+  - e86ba04 "Fix: swipe-back closes lightbox first, then steps back through pages": rewrote the existing popstate handler to close the TOP open layer first — if #srLightbox.open remove it and return; else if #prod-modal-overlay.open remove it and return; else navigate pages (state.page -> showPage; state.view -> stay; else home). (Had to modify the EXISTING handler, not add a second listener — a second window popstate listener could not reliably run before/override the original.)
+  - aeb85a4 "Fix: push history state for product modal and lightbox ...": appended __teljuSwipeLayers IIFE right after __teljuHistoryFix that wraps openProductDetail -> pushState{view:'product'}#product, openLightbox -> pushState{view:'lightbox'}#lightbox, and wraps closeLightbox / closeProdModalDirect so a MANUAL (X / outside) close also calls history.back() to keep the stack in sync (guarded so popstate-driven closes don't double-back).
+VERIFIED LIVE on telju.rs (cache-busted): stack home->cardio->product(#product)->lightbox(#lightbox). Back#1 -> lightbox closed, product modal still open, still on cardio page (NOT home). Back#2 -> modal closed, cardio category visible. Back#3 -> home. Manual X-close also syncs history (closeLightbox -> #product, modal still open). No surprise site exit.
+
+STEP 2 — Mobile white backgrounds ALL photos (IN PROGRESS — verifying each category next).
+
+// AUTO-SAVE: CONTINUE HERE - next: verify mobile white backgrounds on every category page (Plate Loaded, Cable/Pin, Heavy Lifters, Cardio, Freeweights), fix any dark photo, then final commit.

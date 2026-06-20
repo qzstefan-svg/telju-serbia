@@ -536,6 +536,21 @@ body{margin:0 auto;text-align:left}
   .product-card img,
   .pc-img-empty{background:#ffffff !important;}
 }
+
+/* WHITE-BG-MOBILE-HARDEN-900: bulletproof white photo backgrounds on mobile - covers the photo tile + image only (NOT .pc-info which stays dark by design). 0/79 images have a dark baked bg; this prevents any dark parent (#111 .product-card) from ever showing in the photo area. */
+.product-card .pc-img,
+.product-card .pc-img img,
+.product-card img,
+.pc-placeholder,
+.pc-img-empty{background-color:#ffffff !important;background:#ffffff !important;}
+@media (max-width:900px){
+  .product-card .pc-img,
+  .product-card .pc-img img,
+  .product-card img,
+  .pc-placeholder,
+  .pc-img-empty,
+  .product-grid .product-card .pc-img{background-color:#ffffff !important;background:#ffffff !important;mix-blend-mode:normal !important;filter:none !important;}
+}
 </style>
 </head>
 <body>

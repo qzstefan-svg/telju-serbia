@@ -551,6 +551,36 @@ body{margin:0 auto;text-align:left}
   .pc-img-empty,
   .product-grid .product-card .pc-img{background-color:#ffffff !important;background:#ffffff !important;mix-blend-mode:normal !important;filter:none !important;}
 }
+
+/* SAMSUNG-BROWSER-FIX: cross-browser white product-photo backgrounds (Chrome/Samsung Internet/Safari/Firefox mobile). Scoped to the photo tile only (.pc-img / img) - NOT the whole .product-card, which is intentionally #111111 for the dark title/dimensions strip below each photo (confirmed design from earlier sessions). */
+.product-card .pc-img,
+.pc-img-wrap,
+.product-card .pc-img img,
+.product-card img,
+.pc-placeholder,
+.pc-img-empty{
+  background-color:#ffffff !important;
+  background:#ffffff !important;
+  mix-blend-mode:normal !important;
+  -webkit-mix-blend-mode:normal !important;
+  filter:none !important;
+  isolation:isolate;
+}
+@media (max-width:900px){
+  .product-card .pc-img,
+  .pc-img-wrap,
+  .product-card .pc-img img,
+  .product-card img,
+  .pc-placeholder,
+  .pc-img-empty{
+    background-color:#ffffff !important;
+    background:#ffffff !important;
+    mix-blend-mode:normal !important;
+    -webkit-mix-blend-mode:normal !important;
+    filter:none !important;
+  }
+}
+*{-webkit-background-clip:initial;-webkit-text-fill-color:initial;}
 </style>
 </head>
 <body>

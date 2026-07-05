@@ -571,7 +571,7 @@ NEXT SESSION: owner-dependent items only (unchanged) -- real dimensions for the 
 
 
 ==================================================================== 
-SESSION 19 — 2026-07-05 STATUS: IN PROGRESS
+SESSION 19 — 2026-07-05 STATUS: COMPLETE
 
 TASK: Fix product photo backgrounds for ALL browsers including Samsung Browser.
 
@@ -584,3 +584,16 @@ DELIBERATE DEVIATION FROM THE LITERAL REQUEST (documented per policy): The task'
 STEP 2 - HTML INLINE STYLE FIX (NEXT): add inline `style="background-color:#ffffff;background:#ffffff;"` directly to all 79 `<div class="pc-img">` wrapper divs and their `<img>` children (confirmed all 79 product images follow the exact identical markup pattern `<div class="pc-img"><img src="..." alt="..." loading="lazy"></div>`, verified via exact string count = 79/79 matches, no variants). This covers the PNG-transparent-background root cause directly on the element itself, independent of any CSS cascade/specificity quirk in Samsung Internet. Not yet committed -- in progress.
 
 NEXT SESSION STEP: Apply the global find/replace for the inline style on all 79 pc-img wrappers + img tags, commit as "Fix: inline background on all product card images", verify live on telju.rs, then update this log to STATUS: COMPLETE.
+
+
+STEP 2 — HTML INLINE STYLE FIX (DONE, commit e4c10fb "Fix: inline background on all product card images"). Verified all 79 product images follow the identical markup `<div class="pc-img"><img src="..." alt="..." loading="lazy"></div>` (exact string count 79/79, 0 variants) before touching anything. Applied a global find/replace: every `<div class="pc-img">` wrapper now carries `style="background-color:#ffffff;background:#ffffff;"` and every `<img>` inside it carries the same inline style. This is the most reliable cross-browser fix possible -- inline styles have the highest CSS specificity of any rule and cannot be overridden by any stylesheet cascade quirk, so it is independent of how Samsung Internet (or any other browser) resolves class-based rules or mix-blend-mode. This directly covers the stated root cause (PNG product photos with transparent backgrounds showing whatever is behind them) because the white background is now painted on the element itself, not inherited through CSS.
+
+VERIFIED LIVE on telju.rs (cache-busted ?v=4) after Vercel deploy: scripted check of all 79 .product-card entries confirms (a) getComputedStyle background-color of both the .pc-img wrapper and the img itself = rgb(255,255,255) with 0 exceptions, and (b) both elements carry the literal inline style attribute containing 'ffffff' with 0 missing -- so the fix is present at the DOM level, not only in a stylesheet that a given browser might parse differently. Visually screenshotted the Cardio category page: all photos render on clean white tiles with the dark title/dimension strip intact below each photo (no regression to the Session 17/18 card design or the swipe-back navigation fix).
+
+CROSS-BROWSER REASONING (could not literally launch Samsung Browser/Safari/Firefox in this environment, so verified via code + computed styles instead of a real device matrix): Chrome mobile -- already working, unaffected. Samsung Internet -- now fixed because the white background is an inline style directly on the img/wrapper element (bypasses any Samsung-specific stylesheet cascade or mix-blend-mode handling difference). Safari mobile -- inline background-color is standard CSS supported since Safari 1; no WebKit-specific issue applies here. Firefox mobile -- same standard property, fully supported. Because the fix uses only `background-color`/`background` (no vendor-prefixed or experimental property) applied as an inline style, it does not depend on any browser-specific feature.
+
+DID NOT literally apply from the task's suggested snippet: `.product-card{background:#ffffff}` (would whiten the dark title/dimensions strip and make the white product-name text unreadable -- this card-frame-dark/photo-white split is a deliberate, previously-confirmed design decision). The wildcard `*{-webkit-background-clip:initial;-webkit-text-fill-color:initial}` WAS added since it was verified harmless (0 uses of background-clip:text anywhere in the file).
+
+STATUS: COMPLETE
+DONE: Samsung Browser (and all other browsers') white product-photo background fix applied at both the CSS level (SAMSUNG-BROWSER-FIX block, commit 9e9c335) and the HTML inline-style level (commit e4c10fb) -- belt-and-suspenders so the fix does not depend on any single browser's CSS cascade behavior. All 79 product cards verified white with 0 exceptions, both via computed style and literal inline attribute presence.
+NEXT SESSION: owner-dependent items only (unchanged) -- real dimensions for the 8 newer cardio machines; real photos for the 7 previously-removed placeholder machines; earlier content/SEO items (pricing/quote flow, meta/OG tags, analytics).

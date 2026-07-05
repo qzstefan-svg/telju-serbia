@@ -543,3 +543,28 @@ VERIFIED LIVE on telju.rs (cache-busted ?v=18harden): hardening block deployed; 
 STATUS: COMPLETE
 DONE: swipe-back fixed (lightbox closes first, then product modal, then category, then home — never exits site; manual X-close also history-synced); all mobile product photo backgrounds white, verified per category by pixel analysis + computed style + visual screenshots.
 NEXT SESSION: owner-dependent items only — real dimensions for the 8 newer cardio machines; real photos for the 7 previously-removed non-cardio placeholder machines; earlier content/SEO items (pricing/quote flow, meta/OG tags, analytics).
+
+
+==================================================================== 
+SESSION 18 — 2026-07-05 STATUS: COMPLETE
+
+TASK: Continue from Session 17 (swipe-back lightbox + mobile white backgrounds). Session 17 claimed both COMPLETE, but this session found and fixed a real remaining bug.
+
+FINDING: Verified live telju.rs by scripting the actual flow (home -> cardio -> open product -> open photo lightbox -> back x3). Discovered the Session 17 popstate/swipe-back code checked the WRONG element id: it looked for #srLightbox (which is the unrelated Showroom page gallery lightbox) instead of #lightbox-overlay (the actual product-photo lightbox opened by openLightbox/closeLightbox). Because #srLightbox was never open, the popstate handler fell through and closed the PRODUCT MODAL instead of the photo lightbox on the first back/swipe -- the opposite of the required behavior.
+
+FIX (DONE): In the popstate listener and in the internal __lbO() open-check helper (both inside the __teljuSwipeLayers block added in Session 17), changed document.getElementById('srLightbox') -> document.getElementById('lightbox-overlay') (2 occurrences). Left the other 4 unrelated #srLightbox/#srLightboxImg/#srLightboxCounter references untouched (those belong to the separate Showroom gallery feature and were already correct). Commit: "Fix: swipe-back popstate handler used wrong lightbox element ID (srLightbox instead of lightbox-overlay), causing product modal to close instead of the photo lightbox" (362d0c3).
+
+VERIFIED LIVE on telju.rs after Vercel deploy (cache-busted ?v=2/?v=3), full chain scripted end-to-end:
+- home -> showPage('cardio') -> pushes {page:'cardio'}, #cardio
+- click product card -> openProductDetail -> pushes {view:'product'}, #product, modal opens
+- click hero photo -> openLightbox -> pushes {view:'lightbox'}, #lightbox, lightbox opens
+- Back #1: lightbox closes ONLY; product modal still open; still on cardio page underneath (confirmed via getComputedStyle/classList AND visual screenshot)
+- Back #2: product modal closes; cardio category page shown (#cardio)
+- Back #3: homepage shown (#home)
+- Back #4 (fresh tab, direct visit, no prior in-app history): browser reports no further history entry to go back to -- site is never exited, confirms 'stays on homepage / does not exit website' requirement
+
+MOBILE WHITE BACKGROUNDS: Re-verified, no regressions. All 79 .product-card .pc-img tiles compute to rgb(255,255,255) (checked via getComputedStyle, not just source CSS). 0 dark/black backgrounds found on any product photo, in the product grid tiles or the product-detail modal hero (.prod-modal-hero also #fff, from Session 12/14). No mix-blend-mode, no filter:invert, no #111/#000 on any image container. This matches the WHITE-BG hardening blocks already committed in Sessions 14/16/17 -- nothing further was needed here.
+
+STATUS: COMPLETE
+DONE: swipe-back now correctly closes ONLY the top-most layer every time (lightbox -> product modal -> category -> home -> stays home); all mobile product photo backgrounds confirmed white with 0 exceptions across all 79 cards.
+NEXT SESSION: owner-dependent items only (unchanged) -- real dimensions for the 8 newer cardio machines; real photos for the 7 previously-removed placeholder machines; earlier content/SEO items (pricing/quote flow, meta/OG tags, analytics).

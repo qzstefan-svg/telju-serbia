@@ -668,3 +668,6 @@ PROJECTS ADDED THIS SESSION:
 - Doopie Cash (Nederland, Home/Office Gym)
 
 NEXT SESSION: owner-dependent items only. No further Instagram project work outstanding from this task. If new Instagram project posts appear in future, follow the same JS-based file-replace technique noted above.
+
+
+NOTE: After initial insertion, card order was HolyFit, Doopie Cash, Stone Company Bathrooms, Sportcentrum Nico Jager, Beograd (reversed) because each new card shared the same style="cursor:default" marker used to locate the insertion point, so each subsequent insertion matched the previous new card instead of the Beograd card. Fixed via commit reordering the 3 new cards into insertion order: HolyFit, Sportcentrum Nico Jager, Stone Company Bathrooms, Doopie Cash, Beograd. Verified live on telju.rs. FUTURE SESSIONS: when locating insertion points by matching an HTML attribute string, use a marker unique to the target element (e.g. its specific image src or text content), not a generic shared attribute like style="cursor:default".

@@ -232,7 +232,8 @@ footer{background:var(--bg2);color:var(--text2);padding:56px 32px 28px;border-to
 .proj-featured-body h3{font-size:16px;font-weight:800;color:var(--text);text-transform:uppercase;letter-spacing:.3px}
 .proj-featured-body p{font-size:12px;color:var(--text3);margin-top:3px}
 .proj-view-btn{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);white-space:nowrap}
-.proj-secondary{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-bottom:1px}
+.proj-secondary{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-bottom:1px}
+.proj-secondary .proj-card-v2:first-child{grid-column:span 2}
 .proj-card-v2{background:var(--bg2);overflow:hidden;cursor:pointer;transition:background .2s}
 .proj-card-v2:hover{background:var(--bg3)}
 .proj-card-v2 .pcv2-img{overflow:hidden;background:var(--bg3);position:relative}
@@ -282,7 +283,7 @@ footer{background:var(--bg2);color:var(--text2);padding:56px 32px 28px;border-to
   .footer-top{flex-direction:column;gap:28px}
   .showroom-location-card{grid-template-columns:1fr}
   .slc-img{min-height:220px}
-  .proj-secondary{grid-template-columns:1fr}
+  .proj-secondary{grid-template-columns:repeat(2,1fr)}
   .proj-featured-img img{aspect-ratio:16/9}
 }
 

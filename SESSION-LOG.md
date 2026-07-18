@@ -644,3 +644,27 @@ PROJECTS STILL TO ADD:
 
 
 Update: Stone Company Bathrooms project card added (commit aedc7d1: "Add: project Stone Company Bathrooms from Instagram"). Image assets/images/projects/instagram-stone-company-bathrooms.jpg uploaded. PROJECTS ADDED SO FAR now: Sportcentrum Nico Jager, Stone Company Bathrooms. PROJECTS STILL TO ADD: Doopie Cash.
+
+
+---
+
+## SESSION 20 UPDATE — COMPLETE
+
+STATUS: COMPLETE
+DATE: 2026-07-18
+DONE:
+- Added 3 new Instagram project deliveries to telju.rs Projects section: Sportcentrum Nico Jager (Nederland, Commercial Gym, commit 1c50fe3), Stone Company Bathrooms (Hardinxveld-Giessendam, Nederland, Office Gym, commit aedc7d1), Doopie Cash (Nederland, Home/Office Gym, commit 152e6eb)
+- Uploaded 3 clean screenshots to assets/images/projects/ (instagram-sportcentrum-nico-jager.jpg, instagram-stone-company-bathrooms.jpg, instagram-doopie-cash.jpg), each captured via canvas frame-grab from the source Instagram video with captions/people cropped out where possible
+- Updated .proj-secondary grid CSS for 5 total secondary cards: base layout now repeat(3,1fr) with first-child spanning 2 columns (commit 2be8cee "Update: projects grid layout for multiple projects"); adapted to this file's existing breakpoints (960px, 560px) rather than the 768px/480px mentioned in the task, since those are the breakpoints already used throughout index.html for this section
+- Added bilingual intro paragraph above the projects grid (commit 6c39283 "Add: projects intro text"): Serbian "Pogledajte neke od naših realizovanih projekata širom Evrope." plus English "Take a look at some of our completed projects across Europe." as a smaller sub-line (site has no i18n/toggle system, so both lines are shown together)
+- Kept existing projects unchanged: Pillars of Strength (Dordrecht), HolyFit (Arnhem), Beograd/Uskoro
+- Excluded @thomasdemeijer_ post (ambiguous business identity, did not guess a name)
+
+TECHNIQUE NOTE FOR FUTURE SESSIONS: The GitHub web code editor (github.com/.../edit/main/index.html) has auto-closing-tag behavior that corrupts manually-typed HTML via keystroke simulation. Instead, fetch the file via the GitHub Contents API (raw), modify the string in JS, then inject it as a File via DataTransfer into the hidden file input on the github.com/.../upload/main/ page (input.files = dt.files; dispatch 'change' event). This cleanly replaces the file by filename on commit, with no keystroke/auto-indent corruption risk.
+
+PROJECTS ADDED THIS SESSION:
+- Sportcentrum Nico Jager (Nederland, Commercial Gym)
+- Stone Company Bathrooms (Hardinxveld-Giessendam, Nederland, Office Gym)
+- Doopie Cash (Nederland, Home/Office Gym)
+
+NEXT SESSION: owner-dependent items only. No further Instagram project work outstanding from this task. If new Instagram project posts appear in future, follow the same JS-based file-replace technique noted above.

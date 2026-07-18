@@ -641,3 +641,6 @@ PROJECTS ADDED SO FAR:
 PROJECTS STILL TO ADD:
 - Stone Company Bathrooms (Hardinxveld-Giessendam, Nederland, Office Gym)
 - Doopie Cash (Nederland, Home Gym/Office Gym)
+
+
+Update: Stone Company Bathrooms project card added (commit aedc7d1: "Add: project Stone Company Bathrooms from Instagram"). Image assets/images/projects/instagram-stone-company-bathrooms.jpg uploaded. PROJECTS ADDED SO FAR now: Sportcentrum Nico Jager, Stone Company Bathrooms. PROJECTS STILL TO ADD: Doopie Cash.

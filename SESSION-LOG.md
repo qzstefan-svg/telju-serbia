@@ -597,3 +597,47 @@ DID NOT literally apply from the task's suggested snippet: `.product-card{backgr
 STATUS: COMPLETE
 DONE: Samsung Browser (and all other browsers') white product-photo background fix applied at both the CSS level (SAMSUNG-BROWSER-FIX block, commit 9e9c335) and the HTML inline-style level (commit e4c10fb) -- belt-and-suspenders so the fix does not depend on any single browser's CSS cascade behavior. All 79 product cards verified white with 0 exceptions, both via computed style and literal inline attribute presence.
 NEXT SESSION: owner-dependent items only (unchanged) -- real dimensions for the 8 newer cardio machines; real photos for the 7 previously-removed placeholder machines; earlier content/SEO items (pricing/quote flow, meta/OG tags, analytics).
+
+
+---
+
+## SESSION 20 — 2026-07-18
+
+### Task: Add Instagram project deliveries to telju.rs Projects section
+
+STATUS: IN PROGRESS
+DATE: 2026-07-18
+COMPLETED THIS SESSION:
+- Researched @telju.nl Instagram (last ~28 posts scanned)
+- Confirmed via captions 3 new client project posts (not guessed): Sportcentrum Nico Jager (commercial gym, custom logo equipment), Stone Company Bathrooms (office gym, Hardinxveld-Giessendam), Doopie Cash (home/office gym, EUR 23.000 investment)
+- Excluded ambiguous post from @thomasdemeijer_ (personal account, business identity unclear) per "do not guess names" rule
+- Uploaded assets/images/projects/instagram-sportcentrum-nico-jager.jpg (clean captured frame, no captions/people)
+- Added new .proj-card-v2 entry for Sportcentrum Nico Jager to index.html .proj-secondary block (commit 1c50fe3: "Add: project Sportcentrum Nico Jager from Instagram")
+- Used JS-based file replacement via GitHub upload endpoint (DataTransfer + hidden file input) instead of the web code editor, because the web editor's auto-closing-tag behavior corrupted manually typed HTML
+
+INSTAGRAM POSTS CHECKED:
+- https://www.instagram.com/p/Davek1XiPhy/ (Sportcentrum Nico Jager) - CONFIRMED, added
+- https://www.instagram.com/p/Dar-Y43iuJU/, /DaxUAe7idyr/, /DagMoN1C07i/, /DaUyjMFiDmN/ (Stone Company Bathrooms, office gym in Hardinxveld-Giessendam) - CONFIRMED, not yet added to index.html
+- https://www.instagram.com/p/DaSo2GTC_X1/ (Doopie Cash) - CONFIRMED, not yet added to index.html
+- https://www.instagram.com/p/DZ2GNsei2ZA/ (@thomasdemeijer_) - REJECTED, ambiguous business identity
+- Various factory/process/reseller-announcement posts - REJECTED, not client deliveries
+
+STOPPED MID-TASK:
+- Task: adding remaining 2 project cards (Stone Company Bathrooms, Doopie Cash) to index.html
+- What was being done: about to capture clean screenshot for Stone Company Bathrooms post
+- File being edited: index.html (.proj-secondary block)
+- Line/section: after the Sportcentrum Nico Jager card just added, before the Beograd/Uskoro card
+
+NEXT SESSION MUST START WITH:
+- Step 1: Capture clean screenshot for Stone Company Bathrooms from https://www.instagram.com/p/DaUyjMFiDmN/, upload to assets/images/projects/instagram-stone-company-bathrooms.jpg, commit "Add: project Stone Company Bathrooms from Instagram"
+- Step 2: Capture clean screenshot for Doopie Cash from https://www.instagram.com/p/DaSo2GTC_X1/, upload to assets/images/projects/instagram-doopie-cash.jpg, commit "Add: project Doopie Cash from Instagram"
+- Step 3: Update .proj-secondary grid CSS for 5 cards, commit "Update: projects grid layout for multiple projects"
+- Step 4: Add bilingual intro text above projects grid, commit "Add: projects intro text"
+- Step 5: Final SESSION-LOG.md update to STATUS: COMPLETE, final commit "Complete: Instagram projects added to telju.rs projects section"
+
+PROJECTS ADDED SO FAR:
+- Sportcentrum Nico Jager (Nederland, Commercial Gym) — DONE
+
+PROJECTS STILL TO ADD:
+- Stone Company Bathrooms (Hardinxveld-Giessendam, Nederland, Office Gym)
+- Doopie Cash (Nederland, Home Gym/Office Gym)

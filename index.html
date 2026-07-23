@@ -582,6 +582,30 @@ body{margin:0 auto;text-align:left}
   }
 }
 *{-webkit-background-clip:initial;-webkit-text-fill-color:initial;}
+
+/* PROJECT DETAIL PAGES */
+.proj-detail-hero{width:100%;aspect-ratio:16/9;background:var(--bg3);overflow:hidden;margin-bottom:14px;border:1px solid var(--border)}
+.proj-detail-hero img{width:100%;height:100%;object-fit:cover;cursor:pointer;transition:opacity .2s}
+.proj-detail-hero img:hover{opacity:.9}
+.proj-detail-thumbs{display:flex;gap:6px;overflow-x:auto;margin-bottom:22px;padding-bottom:4px}
+.pd-thumb{width:88px;height:66px;object-fit:cover;flex-shrink:0;cursor:pointer;opacity:.55;transition:opacity .15s,outline .15s;border:1px solid var(--border)}
+.pd-thumb:hover{opacity:.85}
+.pd-thumb.active{opacity:1;outline:2px solid var(--red)}
+.proj-detail-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.proj-tag-type{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;background:rgba(255,255,255,.06);color:var(--text2);border:1px solid var(--border2)}
+.proj-detail-desc{color:var(--text2);font-size:14px;line-height:1.8;max-width:720px}
+.proj-detail-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+
+/* PROJECT CARD CLICKABLE CUES (STEP 4) */
+.proj-featured,.proj-card-v2{position:relative}
+.proj-featured:hover .proj-featured-img img{filter:brightness(0.85)}
+.proj-card-v2:hover .pcv2-img img{transform:scale(1.04);filter:brightness(0.85)}
+.proj-view-more{display:inline-block;opacity:0;transition:opacity .2s;color:var(--red);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:8px}
+.proj-card-v2:hover .proj-view-more{opacity:1}
+@media(hover:none){.proj-view-more{display:none}}
+.proj-tap-hint{display:none;color:var(--text3);font-size:10px;font-weight:600;letter-spacing:.5px;margin-top:6px}
+@media(hover:none){.proj-tap-hint{display:block}}
+
 </style>
 </head>
 <body>
@@ -1113,7 +1137,7 @@ body{margin:0 auto;text-align:left}
       <p class="proj-intro fade-in" style="color:var(--text2);font-size:13px;line-height:1.7;max-width:640px;margin-bottom:28px">Pogledajte neke od naših realizovanih projekata širom Evrope.<br><span style="color:var(--text3);font-size:12px">Take a look at some of our completed projects across Europe.</span></p>
 
       <!-- FEATURED: Pillars of Strength -->
-      <div class="proj-featured fade-in" onclick="openModal('pillars')">
+      <div class="proj-featured fade-in" onclick="showPage('project-pillars'); renderProjectGallery('pillars')">
         <div class="proj-featured-img">
           <img src="https://static.wixstatic.com/media/dead3a_3b2f12338df24ec19701253826e6c0e0~mv2.jpg/v1/fill/w_1153,h_742,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/dead3a_3b2f12338df24ec19701253826e6c0e0~mv2.jpg" alt="Pillars of Strength Dordrecht" loading="eager">
           <span class="proj-featured-badge">Istaknuti projekat</span>
@@ -1128,7 +1152,7 @@ body{margin:0 auto;text-align:left}
       </div>
 
       <!-- SECONDARY PROJECTS -->
-      <div class="proj-secondary"><div class="proj-card-v2 fade-in" onclick="openModal('holyfit')">
+      <div class="proj-secondary"><div class="proj-card-v2 fade-in" onclick="showPage('project-holyfit'); renderProjectGallery('holyfit')">
           <div class="pcv2-img">
             <img src="https://static.wixstatic.com/media/dead3a_141f9534bfc94a969516a35d910cd6b4~mv2.jpg/v1/fill/w_490,h_327,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/dead3a_141f9534bfc94a969516a35d910cd6b4~mv2.jpg" alt="HolyFit" loading="lazy">
           </div>
@@ -1136,9 +1160,11 @@ body{margin:0 auto;text-align:left}
             <h3>HolyFit</h3>
             <p>Holandija — Telju Fitness NL</p>
             <span class="proj-tag" style="margin-top:12px">Završen</span>
+            <span class="proj-view-more">Pogledaj projekat →</span>
+            <span class="proj-tap-hint">Klikni za više →</span>
           </div>
         </div>
-                                <div class="proj-card-v2 fade-in" style="cursor:default">
+                                <div class="proj-card-v2 fade-in" onclick="showPage('project-sportcentrum'); renderProjectGallery('sportcentrum')">
           <div class="pcv2-img">
             <img src="assets/images/projects/instagram-sportcentrum-nico-jager.jpg" alt="Sportcentrum Nico Jager - Telju Fitness" loading="lazy">
           </div>
@@ -1146,9 +1172,11 @@ body{margin:0 auto;text-align:left}
             <h3>Sportcentrum Nico Jager</h3>
             <p>Nederland — Commercial Gym</p>
             <span class="proj-tag" style="margin-top:12px">Završen</span>
+            <span class="proj-view-more">Pogledaj projekat →</span>
+            <span class="proj-tap-hint">Klikni za više →</span>
           </div>
         </div>
-<div class="proj-card-v2 fade-in" style="cursor:default">
+<div class="proj-card-v2 fade-in" onclick="showPage('project-stonecompany'); renderProjectGallery('stonecompany')">
           <div class="pcv2-img">
             <img src="assets/images/projects/instagram-stone-company-bathrooms.jpg" alt="Stone Company Bathrooms - Telju Fitness" loading="lazy">
           </div>
@@ -1156,9 +1184,11 @@ body{margin:0 auto;text-align:left}
             <h3>Stone Company Bathrooms</h3>
             <p>Hardinxveld-Giessendam, Holandija — Office Gym</p>
             <span class="proj-tag" style="margin-top:12px">Završen</span>
+            <span class="proj-view-more">Pogledaj projekat →</span>
+            <span class="proj-tap-hint">Klikni za više →</span>
           </div>
         </div>
-<div class="proj-card-v2 fade-in" style="cursor:default">
+<div class="proj-card-v2 fade-in" onclick="showPage('project-doopiecash'); renderProjectGallery('doopiecash')">
           <div class="pcv2-img">
             <img src="assets/images/projects/instagram-doopie-cash.jpg" alt="Doopie Cash - Telju Fitness" loading="lazy">
           </div>
@@ -1166,6 +1196,8 @@ body{margin:0 auto;text-align:left}
             <h3>Doopie Cash</h3>
             <p>Nederland — Home / Office Gym</p>
             <span class="proj-tag" style="margin-top:12px">Završen</span>
+            <span class="proj-view-more">Pogledaj projekat →</span>
+            <span class="proj-tap-hint">Klikni za više →</span>
           </div>
         </div>
 <div class="proj-card-v2 fade-in" style="cursor:default">
@@ -1260,6 +1292,151 @@ body{margin:0 auto;text-align:left}
 </div>
 
 <!-- =============================== CONTACT PAGE =============================== -->
+
+<div class="page" id="page-project-pillars">
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <button class="back-btn" onclick="showPage('projects')">← Projekti</button>
+      <h1>Pillars of Strength</h1>
+      <p style="color:var(--text2);font-size:13px;margin-top:10px">Dordrecht, Holandija — Vrieseweg 8, 3311 NX</p>
+    </div>
+  </div>
+  <section>
+    <div class="sec-inner" style="max-width:980px">
+      <div class="proj-detail-hero">
+        <img id="pd-hero-pillars" src="" alt="Pillars of Strength - Telju Fitness" loading="eager" onclick="openLightbox(PROJECT_GALLERIES.pillars, pdIdx.pillars)">
+      </div>
+      <div class="proj-detail-thumbs" id="pd-thumbs-pillars"></div>
+      <div class="proj-detail-tags">
+        <span class="proj-tag-type">Commercial Gym</span>
+        <span class="proj-tag">Završen</span>
+      </div>
+      <p class="proj-detail-desc">Pillars of Strength je profesionalna high-performance teretana u Dordrechtu opremljena kompletnom linijom Telju fitnes mašina. Ovde možete videti i isprobati opremu iz prve ruke — plate loaded mašine, cable sisteme, slobodne tegove i cardio sprave, sve u premium okruženju.</p>
+      
+      <div class="proj-detail-cta">
+        <a href="https://wa.me/31648955010?text=Zdravo%2C%20zanima%20me%20projekat%20Pillars%20of%20Strength" target="_blank" class="btn btn-wa"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+        <a href="mailto:info@telju.rs?subject=Poseta%20showroom%20-%20Pillars%20of%20Strength" class="btn btn-em" style="font-size:12px;padding:12px 24px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Kontaktirajte nas</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<div class="page" id="page-project-holyfit">
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <button class="back-btn" onclick="showPage('projects')">← Projekti</button>
+      <h1>HolyFit</h1>
+      <p style="color:var(--text2);font-size:13px;margin-top:10px">Arnhem, Holandija — renovirana crkva Sint-Jozef</p>
+    </div>
+  </div>
+  <section>
+    <div class="sec-inner" style="max-width:980px">
+      <div class="proj-detail-hero">
+        <img id="pd-hero-holyfit" src="" alt="HolyFit - Telju Fitness" loading="eager" onclick="openLightbox(PROJECT_GALLERIES.holyfit, pdIdx.holyfit)">
+      </div>
+      <div class="proj-detail-thumbs" id="pd-thumbs-holyfit"></div>
+      <div class="proj-detail-tags">
+        <span class="proj-tag-type">Boutique / Crkva teretana</span>
+        <span class="proj-tag">Završen</span>
+      </div>
+      <p class="proj-detail-desc">HolyFit je jedinstven fitnes centar smešten u renoviranoj crkvi Sint-Jozef u Arnhemu. Telju oprema prilagođena sa HolyFit logom na svakom sedištu.</p>
+      <p style="color:var(--text3);font-size:12px;margin-top:10px;font-style:italic">HolyFit is a unique fitness center located in a renovated church in Arnhem. Telju equipment customized with the HolyFit logo on every seat.</p>
+      <div class="proj-detail-cta">
+        <a href="https://wa.me/31648955010?text=Zdravo%2C%20zanima%20me%20projekat%20HolyFit" target="_blank" class="btn btn-wa"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+        <a href="mailto:info@telju.rs?subject=Upit%20-%20HolyFit%20projekat" class="btn btn-em" style="font-size:12px;padding:12px 24px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Kontaktirajte nas</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<div class="page" id="page-project-sportcentrum">
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <button class="back-btn" onclick="showPage('projects')">← Projekti</button>
+      <h1>Sportcentrum Nico Jager</h1>
+      <p style="color:var(--text2);font-size:13px;margin-top:10px">Nederland</p>
+    </div>
+  </div>
+  <section>
+    <div class="sec-inner" style="max-width:980px">
+      <div class="proj-detail-hero">
+        <img id="pd-hero-sportcentrum" src="" alt="Sportcentrum Nico Jager - Telju Fitness" loading="eager" onclick="openLightbox(PROJECT_GALLERIES.sportcentrum, pdIdx.sportcentrum)">
+      </div>
+      <div class="proj-detail-thumbs" id="pd-thumbs-sportcentrum"></div>
+      <div class="proj-detail-tags">
+        <span class="proj-tag-type">Commercial Gym</span>
+        <span class="proj-tag">Završen</span>
+      </div>
+      <p class="proj-detail-desc">Sportcentrum Nico Jager je komercijalna teretana u Holandiji opremljena Telju fitnes mašinama za svakodnevni rad sa članovima kluba.</p>
+      
+      <div class="proj-detail-cta">
+        <a href="https://wa.me/31648955010?text=Zdravo%2C%20zanima%20me%20projekat%20Sportcentrum%20Nico%20Jager" target="_blank" class="btn btn-wa"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+        <a href="mailto:info@telju.rs?subject=Upit%20-%20Sportcentrum%20Nico%20Jager" class="btn btn-em" style="font-size:12px;padding:12px 24px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Kontaktirajte nas</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<div class="page" id="page-project-stonecompany">
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <button class="back-btn" onclick="showPage('projects')">← Projekti</button>
+      <h1>Stone Company Bathrooms</h1>
+      <p style="color:var(--text2);font-size:13px;margin-top:10px">Hardinxveld-Giessendam, Holandija</p>
+    </div>
+  </div>
+  <section>
+    <div class="sec-inner" style="max-width:980px">
+      <div class="proj-detail-hero">
+        <img id="pd-hero-stonecompany" src="" alt="Stone Company Bathrooms - Telju Fitness" loading="eager" onclick="openLightbox(PROJECT_GALLERIES.stonecompany, pdIdx.stonecompany)">
+      </div>
+      <div class="proj-detail-thumbs" id="pd-thumbs-stonecompany"></div>
+      <div class="proj-detail-tags">
+        <span class="proj-tag-type">Office Gym</span>
+        <span class="proj-tag">Završen</span>
+      </div>
+      <p class="proj-detail-desc">Stone Company Bathrooms je kancelarijska teretana u Hardinxveld-Giessendamu, opremljena Telju opremom za svakodnevni trening zaposlenih.</p>
+      
+      <div class="proj-detail-cta">
+        <a href="https://wa.me/31648955010?text=Zdravo%2C%20zanima%20me%20projekat%20Stone%20Company%20Bathrooms" target="_blank" class="btn btn-wa"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+        <a href="mailto:info@telju.rs?subject=Upit%20-%20Stone%20Company%20Bathrooms" class="btn btn-em" style="font-size:12px;padding:12px 24px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Kontaktirajte nas</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<div class="page" id="page-project-doopiecash">
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <button class="back-btn" onclick="showPage('projects')">← Projekti</button>
+      <h1>Doopie Cash</h1>
+      <p style="color:var(--text2);font-size:13px;margin-top:10px">Nederland</p>
+    </div>
+  </div>
+  <section>
+    <div class="sec-inner" style="max-width:980px">
+      <div class="proj-detail-hero">
+        <img id="pd-hero-doopiecash" src="" alt="Doopie Cash - Telju Fitness" loading="eager" onclick="openLightbox(PROJECT_GALLERIES.doopiecash, pdIdx.doopiecash)">
+      </div>
+      <div class="proj-detail-thumbs" id="pd-thumbs-doopiecash"></div>
+      <div class="proj-detail-tags">
+        <span class="proj-tag-type">Home / Office Gym</span>
+        <span class="proj-tag">Završen</span>
+      </div>
+      <p class="proj-detail-desc">Doopie Cash je kombinovana kućna i kancelarijska teretana u Holandiji, opremljena Telju fitnes mašinama prilagođenim prostoru.</p>
+      
+      <div class="proj-detail-cta">
+        <a href="https://wa.me/31648955010?text=Zdravo%2C%20zanima%20me%20projekat%20Doopie%20Cash" target="_blank" class="btn btn-wa"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+        <a href="mailto:info@telju.rs?subject=Upit%20-%20Doopie%20Cash" class="btn btn-em" style="font-size:12px;padding:12px 24px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Kontaktirajte nas</a>
+      </div>
+    </div>
+  </section>
+</div>
+
 <div class="page" id="page-contact">
   <div class="page-hero">
     <div class="page-hero-inner">
@@ -1387,6 +1564,41 @@ function showPage(id){forceLoadVisibleImages();
 const hamburger=document.getElementById('hamburger');
 const mobileMenu=document.getElementById('mobileMenu');
 hamburger.addEventListener('click',()=>mobileMenu.classList.toggle('open'));
+
+/* PROJECT DETAIL GALLERIES */
+var PROJECT_GALLERIES = {
+  pillars: ["https://static.wixstatic.com/media/dead3a_3b2f12338df24ec19701253826e6c0e0~mv2.jpg/v1/fill/w_1153,h_742,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/dead3a_3b2f12338df24ec19701253826e6c0e0~mv2.jpg","https://static.wixstatic.com/media/dead3a_3b2f12338df24ec19701253826e6c0e0~mv2.jpg/v1/fill/w_494,h_318,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/dead3a_3b2f12338df24ec19701253826e6c0e0~mv2.jpg","https://static.wixstatic.com/media/dead3a_141f9534bfc94a969516a35d910cd6b4~mv2.jpg/v1/fill/w_490,h_327,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/dead3a_141f9534bfc94a969516a35d910cd6b4~mv2.jpg","https://static.wixstatic.com/media/dead3a_51324885a61d4631a177474b347a1656~mv2.png/v1/fill/w_494,h_309,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/dead3a_51324885a61d4631a177474b347a1656~mv2.png","https://static.wixstatic.com/media/dead3a_234977835995419f830852f1807fee7f~mv2.png/v1/fill/w_286,h_335,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/pulldown.png","https://static.wixstatic.com/media/dead3a_fdda3184863c4a3298460ee079d8ac01~mv2.png/v1/crop/x_11,y_0,w_1878,h_2200/fill/w_286,h_335,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/chest%20press.png","https://static.wixstatic.com/media/dead3a_1f981cdc63d94c3bbb31203a4c3a9d44~mv2.png/v1/crop/x_11,y_0,w_1878,h_2200/fill/w_286,h_335,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Upright%20bike.png"],
+  holyfit: ["https://static.wixstatic.com/media/dead3a_141f9534bfc94a969516a35d910cd6b4~mv2.jpg/v1/fill/w_490,h_327,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/dead3a_141f9534bfc94a969516a35d910cd6b4~mv2.jpg","https://static.wixstatic.com/media/dead3a_141f9534bfc94a969516a35d910cd6b4~mv2.jpg/v1/fill/w_490,h_327,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/dead3a_141f9534bfc94a969516a35d910cd6b4~mv2.jpg","https://static.wixstatic.com/media/dead3a_3b2f12338df24ec19701253826e6c0e0~mv2.jpg/v1/fill/w_494,h_318,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/dead3a_3b2f12338df24ec19701253826e6c0e0~mv2.jpg","https://static.wixstatic.com/media/dead3a_6ce296a3051444a1bd04a4bc239117c2~mv2.png/v1/crop/x_11,y_0,w_1878,h_2200/fill/w_286,h_335,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/free.png"],
+  sportcentrum: ["assets/images/projects/instagram-sportcentrum-nico-jager.jpg"],
+  stonecompany: ["assets/images/projects/instagram-stone-company-bathrooms.jpg"],
+  doopiecash: ["assets/images/projects/instagram-doopie-cash.jpg"]
+};
+var pdIdx = {pillars:0,holyfit:0,sportcentrum:0,stonecompany:0,doopiecash:0};
+function renderProjectGallery(key){
+  var g = PROJECT_GALLERIES[key] || [];
+  pdIdx[key] = 0;
+  var hero = document.getElementById('pd-hero-'+key);
+  if(hero && g.length){ hero.src = g[0]; }
+  var wrap = document.getElementById('pd-thumbs-'+key);
+  if(!wrap) return;
+  wrap.innerHTML = '';
+  if(g.length <= 1){ wrap.style.display = 'none'; return; }
+  wrap.style.display = 'flex';
+  g.forEach(function(src, i){
+    var im = document.createElement('img');
+    im.src = src;
+    im.loading = 'lazy';
+    im.className = 'pd-thumb' + (i===0 ? ' active' : '');
+    im.onclick = function(){
+      pdIdx[key] = i;
+      if(hero) hero.src = src;
+      wrap.querySelectorAll('.pd-thumb').forEach(function(th){ th.classList.remove('active'); });
+      im.classList.add('active');
+    };
+    wrap.appendChild(im);
+  });
+}
+
 /* __teljuHistoryFix: FIX 3 - browser back button support */
 (function(){var __teljuOrigShowPage=showPage;window.showPage=function(id,pushState){if(pushState!==false){history.pushState({page:id},'','#'+id);}return __teljuOrigShowPage(id);};})();
 window.addEventListener('popstate',function(event){var __lb=document.getElementById('lightbox-overlay');var __pm=document.getElementById('prod-modal-overlay');if(__lb&&__lb.classList.contains('open')){__lb.classList.remove('open');document.body.style.overflow='';return;}if(__pm&&__pm.classList.contains('open')){__pm.classList.remove('open');document.body.style.overflow='';return;}if(event.state&&event.state.page){window.showPage(event.state.page,false);}else if(event.state&&event.state.view){}else{window.showPage('home',false);}});

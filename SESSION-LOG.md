@@ -697,3 +697,34 @@ TECHNIQUE NOTE (cross-tab image transfer): fetch()+canvas base64 bridging via lo
 Updated index.html: PROJECT_GALLERIES.holyfit array now points to the 4 new local assets (was 4 generic wixstatic gym photos shared with the Pillars of Strength gallery). Also updated the HolyFit secondary card thumbnail (.pcv2-img img) from the generic wixstatic photo to holyfit-neon-sign.jpg for a more distinctive card preview. HolyFit detail page description (SR+EN) was already added correctly in Step 1's commit, unchanged. Verified before upload: div count still balanced (484/484), DOMParser no errors, single inline <script> still parses with new Function(), all 4 new filenames present in the gallery array string.
 
 NEXT (this session, not yet done): STEP 3 - look for more photos for Pillars of Strength (instagram.com/pillarsofstrength.nl) and the 3 Instagram-sourced projects (Sportcentrum Nico Jager / Stone Company Bathrooms / Doopie Cash currently have only 1 photo each in their PROJECT_GALLERIES entry - single-photo galleries correctly hide the thumbnail strip via renderProjectGallery's g.length<=1 check, but more photos would improve them). STEP 5 - re-verify full navigation chain live after this HolyFit photo change (Step 1's chain was already verified working before these photos were swapped in; the photo swap does not touch any routing/history/lightbox code so should still work, but worth a quick live re-check).
+
+
+STEP 3 — More photos for other projects (PARTIAL / DECIDED NOT TO FORCE).
+
+Pillars of Strength: already has 7 gallery photos from official sources (client's own Wix site). Checked instagram.com/pillars.of.strength (confirmed correct account: bio address Vrieseweg 8, Dordrecht 3311 NX matches). Available posts were either the same equipment already covered, a video close-up of a weight stack (not a clean standalone photo), or posts showing gym members' faces. Per safety policy this session will not scrape/reuse photos containing identifiable people's faces without consent, so did not add member photos. Net decision: left Pillars gallery as-is (already strong at 7 photos).
+
+Sportcentrum Nico Jager / Stone Company Bathrooms / Doopie Cash: revisited the source posts on instagram.com/telju.be (linked from telju.nl). Both Stone Company Bathrooms posts found (DaUyjMFiDmN, DagMoN1C07i) are short talking-head videos of a person presenting the gym (faces clearly visible throughout) - no clean equipment-only static frame was available without a person in frame. Same constraint as above (no facial images without consent) applied - did not extract a frame from these. Net decision: these 3 projects remain at 1 photo each in PROJECT_GALLERIES; the existing renderProjectGallery(key) code already handles this gracefully (thumbnail strip auto-hides via g.length<=1 check, so a single-photo project still looks clean, no broken UI).
+
+NO CODE CHANGES this step - verification/research only, no commit needed.
+
+STEP 5 — Full navigation chain re-verified live on telju.rs after the Step 2 HolyFit photo swap (scripted end-to-end, not just visual): showPage('home') -> showPage('projects') -> showPage('project-holyfit')+renderProjectGallery -> openLightbox(PROJECT_GALLERIES.holyfit,0) [#lightbox, lightbox open] -> history.back() [lightbox closes, #project-holyfit, still on HolyFit page] -> history.back() [#projects, projects overview] -> history.back() [#home, homepage]. All 4 steps confirmed matching expected state via getElementById/classList checks, not just eyeballing. Also visually confirmed the HolyFit detail page renders the 4 new real photos (hero + 4 thumbnails, active-thumb outline working) and the gallery/description/CTA layout looks correct at desktop viewport.
+
+================================================================
+SESSION 21 UPDATE — COMPLETE
+STATUS: COMPLETE
+DATE: 2026-07-23
+DONE:
+- Individual project detail pages for all 5 completed projects (Pillars, HolyFit, Sportcentrum Nico Jager, Stone Company Bathrooms, Doopie Cash) with hero photo, thumbnail gallery, fullscreen lightbox (arrows/ESC/counter, reusing existing tested lightbox-overlay system), type badge, Zavrsen badge, SR(+EN for HolyFit) description, WhatsApp + email CTA, and a back button that returns to the Projects overview (not home).
+- Full history/back-button/swipe-back chain verified: lightbox closes first, then detail page, then projects overview, then home - by reusing the EXISTING __teljuHistoryFix / __teljuSwipeLayers infrastructure unmodified (zero regression risk), rather than building a parallel system as the task's literal PAGES[]/history.pushState({view:'project',...}) snippet suggested (that snippet does not match this codebase's actual architecture - see Session 16-20 notes on the codebase having no PAGES object).
+- HolyFit gallery replaced with 4 real official photos from holy-fit.eu (neon sign + machines, power rack + bench on brick, church arches, branded keychain logo) instead of the old generic wixstatic gym stock photos shared with Pillars.
+- Clickable visual cues added to all newly-clickable secondary cards (HolyFit, Sportcentrum Nico Jager, Stone Company Bathrooms, Doopie Cash): cursor pointer (already existed), hover zoom(1.04)+brightness(0.85) on the photo, a fade-in "Pogledaj projekat ->" label on hover (desktop), and a permanent small "Klikni za vise ->" hint on touch devices (@media(hover:none)). Beograd/Uskoro card intentionally left non-clickable (not yet delivered, no gallery).
+- Pillars of Strength and the 3 newer Instagram projects intentionally left with their existing photo counts after determining no additional clean (people-free) photos were available without violating the no-facial-images policy; single-photo galleries degrade gracefully (thumbnail strip auto-hidden).
+
+PROJECTS WITH DETAIL PAGES: Pillars of Strength, HolyFit, Sportcentrum Nico Jager, Stone Company Bathrooms, Doopie Cash (5). Beograd/Uskoro intentionally excluded (not a completed project yet).
+
+COMMITS THIS SESSION: 4186e16 "Add: individual project detail pages with gallery", 3d4ca89 "Add: HolyFit detail page with logo photos and gallery", d7bf919 "Update: HolyFit gallery with real logo/church photos" + 2 SESSION-LOG.md commits.
+
+NEXT SESSION (owner-dependent, unchanged/new):
+- If the owner has (or can get) a photo of the actual HolyFit machine SEAT with the embroidered/printed purple logo (the task's reference image), swap it in for holyfit-logo-branding.jpg for an even closer match to the request.
+- If Pillars of Strength, Sportcentrum Nico Jager, Stone Company Bathrooms or Doopie Cash later post clean equipment-only photos (no visible people) on Instagram, add them to PROJECT_GALLERIES to enrich those galleries.
+- Earlier content/SEO items still open (pricing/quote flow, meta/OG tags, analytics) - unchanged from prior sessions.
